@@ -55,6 +55,16 @@ geom_prog_1(char *host)
 	}
 	
 	printf("Le point (1,1) est compris dans le rectangle ? %d\n", (int)*result_3);
+	
+	inclus_1_arg.p.x = 6;
+	inclus_1_arg.p.y = 6;
+	
+	result_3 = inclus_1(&inclus_1_arg, clnt);
+	if (result_3 == (booleen *) NULL) {
+		clnt_perror (clnt, "call failed : inclus_1");
+	}
+	
+	printf("Le point (6,6) est compris dans le rectangle ? %d\n", (int)*result_3);
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
