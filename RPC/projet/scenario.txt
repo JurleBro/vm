@@ -1,0 +1,13 @@
+SCENARIO : effectuer une location pour un client
+
+DETAILS :
+1.1) Afficher liste clients
+1.2) Choix du client (id)
+1.3) Afficher liste mobile
+1.4) Voir plus de détail sur un mobile (id)
+1.5) Choisir les parametre du mobile
+1.5) Validé ce mobile
+1.6) Affichage liste assurance
+1.7) Afficher un assurance plus en details (id)
+1.8) Valider cette assurance
+1.9) Validé la commande
