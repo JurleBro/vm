@@ -1,13 +1,18 @@
-SCENARIO : effectuer une location pour un client
+SCENARIO : effectuer une location pour un client point de vue gestionnaire
 
 DETAILS :
+1.0) Démarrage de la procédure de commande
 1.1) Afficher liste clients
 1.2) Choix du client (id)
 1.3) Afficher liste mobile
-1.4) Voir plus de détail sur un mobile (id)
-1.5) Choisir les parametre du mobile
-1.5) Validé ce mobile
+1.4) Voir plus de détails sur un mobile (id)
+1.5) Choisir les paramêtres du mobile (couleur, 5G, stockage)
+1.5) Enregistrer ce mobile pour la commande
 1.6) Affichage liste assurance
-1.7) Afficher un assurance plus en details (id)
-1.8) Valider cette assurance
-1.9) Validé la commande
+1.7) Afficher une assurance plus en details (id)
+1.8) Enregistrer cette assurance pour la commande
+1.9) Saisie adresse de livraison
+1.10) Enregistré la commande
+1.11) Valider la commande
+1.12) Fixer une date de livraison
+
