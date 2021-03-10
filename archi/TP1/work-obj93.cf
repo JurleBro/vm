@@ -1,0 +1,10 @@
+v 4
+file . "clock.vhd" "532aa952594387406048029e9df445ade8dc0612" "20210210171254.991":
+  entity clock at 1( 0) + 0 on 31;
+  architecture comport of clock at 6( 71) + 0 on 32;
+file . "mux2.vhd" "af7bcfac4198f9040db43f967d548858ee08f128" "20210210164909.696":
+  entity mux2 at 1( 0) + 0 on 27;
+  architecture beh of mux2 at 10( 123) + 0 on 28;
+file . "tb_mux2.vhd" "33df494fcd224e5b38be82f2d9303a23dee88665" "20210210164909.711":
+  entity tb_mux2 at 1( 0) + 0 on 29;
+  architecture test of tb_mux2 at 6( 75) + 0 on 30;

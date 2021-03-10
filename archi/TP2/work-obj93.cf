@@ -1,0 +1,7 @@
+v 4
+file . "bancregistres.vhd" "648a854189986d105bab6debe8a4de79f4c21985" "20210217163748.796":
+  entity bancregistres at 1( 0) + 0 on 27;
+  architecture beh of bancregistres at 12( 300) + 0 on 28;
+file . "tb_bancregistres.vhd" "b0774d7379955023f037af402e06715ef537054f" "20210217163748.803":
+  entity tb_bancregistres at 1( 0) + 0 on 29;
+  architecture test of tb_bancregistres at 6( 93) + 0 on 30;

@@ -1,0 +1,74 @@
+$date
+  Wed Feb 10 17:49:09 2021
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module tb_mux2 $end
+$var reg 1 ! ta $end
+$var reg 1 " tb $end
+$var reg 1 # tc $end
+$var reg 1 $ ts $end
+$scope module iut $end
+$var reg 1 % a $end
+$var reg 1 & b $end
+$var reg 1 ' c $end
+$var reg 1 ( s $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+0!
+0"
+0#
+0$
+0%
+0&
+0'
+0(
+#10000000000000
+1#
+1'
+#20000000000000
+1"
+0#
+1&
+0'
+#30000000000000
+1#
+1$
+1'
+1(
+#40000000000000
+1!
+0"
+0#
+1%
+0&
+0'
+#50000000000000
+1#
+0$
+1'
+0(
+#60000000000000
+1"
+1$
+1&
+1(
+#70000000000000
+0!
+0"
+0#
+0$
+0%
+0&
+0'
+0(
