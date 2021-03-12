@@ -29,14 +29,14 @@ get_clients_1(void *argp, CLIENT *clnt)
 {
 	static liste_clients clnt_res;
 
-	memset((char *)clnt_res, 0, sizeof(clnt_res));
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, GET_CLIENTS,
 		(xdrproc_t) xdr_void, (caddr_t) argp,
-		(xdrproc_t) xdr_liste_clients, (caddr_t) clnt_res,
+		(xdrproc_t) xdr_liste_clients, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}
-	return (clnt_res);
+	return (&clnt_res);
 }
 
 client *
@@ -74,14 +74,14 @@ get_mobiles_1(void *argp, CLIENT *clnt)
 {
 	static liste_mobiles clnt_res;
 
-	memset((char *)clnt_res, 0, sizeof(clnt_res));
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, GET_MOBILES,
 		(xdrproc_t) xdr_void, (caddr_t) argp,
-		(xdrproc_t) xdr_liste_mobiles, (caddr_t) clnt_res,
+		(xdrproc_t) xdr_liste_mobiles, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}
-	return (clnt_res);
+	return (&clnt_res);
 }
 
 mobile *
@@ -119,14 +119,14 @@ get_assurances_1(void *argp, CLIENT *clnt)
 {
 	static liste_assurances clnt_res;
 
-	memset((char *)clnt_res, 0, sizeof(clnt_res));
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, GET_ASSURANCES,
 		(xdrproc_t) xdr_void, (caddr_t) argp,
-		(xdrproc_t) xdr_liste_assurances, (caddr_t) clnt_res,
+		(xdrproc_t) xdr_liste_assurances, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}
-	return (clnt_res);
+	return (&clnt_res);
 }
 
 assurance *
@@ -179,14 +179,14 @@ get_commandes_1(void *argp, CLIENT *clnt)
 {
 	static liste_commandes clnt_res;
 
-	memset((char *)clnt_res, 0, sizeof(clnt_res));
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	if (clnt_call (clnt, GET_COMMANDES,
 		(xdrproc_t) xdr_void, (caddr_t) argp,
-		(xdrproc_t) xdr_liste_commandes, (caddr_t) clnt_res,
+		(xdrproc_t) xdr_liste_commandes, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}
-	return (clnt_res);
+	return (&clnt_res);
 }
 
 commande *

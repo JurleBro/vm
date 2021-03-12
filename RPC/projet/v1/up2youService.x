@@ -105,10 +105,10 @@ struct params_set_dl {
 	struct date date;
 };
 
-typedef client liste_clients[nbMaxClients];
-typedef mobile liste_mobiles[nbMaxMobiles];
-typedef assurance liste_assurances[nbMaxAssurances];
-typedef commande liste_commandes[nbMaxCommandes];
+typedef struct client liste_clients[nbMaxClients];
+typedef struct mobile liste_mobiles[nbMaxMobiles];
+typedef struct assurance liste_assurances[nbMaxAssurances];
+typedef struct commande liste_commandes[nbMaxCommandes];
 
 program UP2US_PROG {
 	version UP2US_V_1 {
