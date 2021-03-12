@@ -8,7 +8,7 @@ const nbMaxMobiles = 10;
 const nbMaxAssurances = 3;
 const nbMaxCommandes = 10;
 
-typdef int boolean;
+typedef int boolean;
 
 struct date {
 	int jour;
@@ -47,12 +47,21 @@ struct mobile {
 	float prix_achat;
 };
 
+enum type {ACHAT, LOCATION};
+typedef enum type type;
+enum couleur { ROUGE, VERT, BLEU};
+typedef enum couleur couleur;
+enum connect { G4, G5};
+typedef enum connect connectivite;
+enum memoire { GO128, GO256, GO512 };
+typedef enum memoire memoire;
+
 struct params_mobile {
 	int id_mobile;
-	enum type {ACHAT, LOCATION};
-	enum couleur { ROUGE, VERT, BLEU};
-	enum connectivite { 4G, 5G };
-	enum memoire { 128GO, 256GO, 512GO };
+	type type;
+	couleur couleur;
+	connectivite connectivite;
+	memoire memoire;
 };
 
 struct assurance {
@@ -78,7 +87,7 @@ struct livraison {
 
 struct params_saisie_mobile {
 	int id_commande;
-	struct params_mobile;
+	struct params_mobile param_mobile;
 };
 
 struct params_saisie_assurance {
@@ -96,20 +105,25 @@ struct params_set_dl {
 	struct date date;
 };
 
+typedef client liste_clients[nbMaxClients];
+typedef mobile liste_mobiles[nbMaxMobiles];
+typedef assurance liste_assurances[nbMaxAssurances];
+typedef commande liste_commandes[nbMaxCommandes];
+
 program UP2US_PROG {
 	version UP2US_V_1 {
 		void INIT() = 1;
-		client[nbMaxClients] GET_CLIENTS() = 2;
+		liste_clients GET_CLIENTS() = 2;
 		client GET_CLIENT(int) = 3;
 		int CREER_COMMANDE(int) = 4;
-		mobile[nbMaxMobiles] GET_MOBILES() = 5;
-		mobile GET_MOBILE(int) = 6
+		liste_mobiles GET_MOBILES() = 5;
+		mobile GET_MOBILE(int) = 6;
 		boolean SET_MOBILE(params_set_mobile) = 7;
-		assurance[nbMaxAssurances] GET_ASSURANCES() = 8;
-		assurance GET_ASSURANCE(int) = 9
+		liste_assurances GET_ASSURANCES() = 8;
+		assurance GET_ASSURANCE(int) = 9;
 		boolean SET_ASSURANCE(params_set_assurance) = 10;
 		boolean SET_ADRESSE_LIVRAISON(params_set_adresse) = 11;
-		commande[nbMaxCommandes] GET_COMMANDES() = 12;
+		liste_commandes GET_COMMANDES() = 12;
 		commande GET_COMMANDE(int) = 13;
 		boolean VALIDE_COMMANDE(int) = 14;
 		boolean SET_DATE_LIVRAISON(params_set_dl) = 15;
