@@ -227,7 +227,7 @@ xdr_livraison (XDR *xdrs, livraison *objp)
 }
 
 bool_t
-xdr_params_saisie_mobile (XDR *xdrs, params_saisie_mobile *objp)
+xdr_params_set_mobile (XDR *xdrs, params_set_mobile *objp)
 {
 	register int32_t *buf;
 
@@ -239,7 +239,7 @@ xdr_params_saisie_mobile (XDR *xdrs, params_saisie_mobile *objp)
 }
 
 bool_t
-xdr_params_saisie_assurance (XDR *xdrs, params_saisie_assurance *objp)
+xdr_params_set_assurance (XDR *xdrs, params_set_assurance *objp)
 {
 	register int32_t *buf;
 

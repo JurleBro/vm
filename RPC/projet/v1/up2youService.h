@@ -131,17 +131,17 @@ struct livraison {
 };
 typedef struct livraison livraison;
 
-struct params_saisie_mobile {
+struct params_set_mobile {
 	int id_commande;
 	struct params_mobile param_mobile;
 };
-typedef struct params_saisie_mobile params_saisie_mobile;
+typedef struct params_set_mobile params_set_mobile;
 
-struct params_saisie_assurance {
+struct params_set_assurance {
 	int id_commande;
 	int id_assurance;
 };
-typedef struct params_saisie_assurance params_saisie_assurance;
+typedef struct params_set_assurance params_set_assurance;
 
 struct params_set_adresse {
 	int id_commande;
@@ -284,8 +284,8 @@ extern  bool_t xdr_params_mobile (XDR *, params_mobile*);
 extern  bool_t xdr_assurance (XDR *, assurance*);
 extern  bool_t xdr_commande (XDR *, commande*);
 extern  bool_t xdr_livraison (XDR *, livraison*);
-extern  bool_t xdr_params_saisie_mobile (XDR *, params_saisie_mobile*);
-extern  bool_t xdr_params_saisie_assurance (XDR *, params_saisie_assurance*);
+extern  bool_t xdr_params_set_mobile (XDR *, params_set_mobile*);
+extern  bool_t xdr_params_set_assurance (XDR *, params_set_assurance*);
 extern  bool_t xdr_params_set_adresse (XDR *, params_set_adresse*);
 extern  bool_t xdr_params_set_dl (XDR *, params_set_dl*);
 extern  bool_t xdr_liste_clients (XDR *, liste_clients);
@@ -312,8 +312,8 @@ extern bool_t xdr_params_mobile ();
 extern bool_t xdr_assurance ();
 extern bool_t xdr_commande ();
 extern bool_t xdr_livraison ();
-extern bool_t xdr_params_saisie_mobile ();
-extern bool_t xdr_params_saisie_assurance ();
+extern bool_t xdr_params_set_mobile ();
+extern bool_t xdr_params_set_assurance ();
 extern bool_t xdr_params_set_adresse ();
 extern bool_t xdr_params_set_dl ();
 extern bool_t xdr_liste_clients ();

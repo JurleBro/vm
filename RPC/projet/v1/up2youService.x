@@ -85,12 +85,12 @@ struct livraison {
 	struct date date;
 };
 
-struct params_saisie_mobile {
+struct params_set_mobile {
 	int id_commande;
 	struct params_mobile param_mobile;
 };
 
-struct params_saisie_assurance {
+struct params_set_assurance {
 	int id_commande;
 	int id_assurance;
 };

@@ -6,14 +6,15 @@
 
 #include "up2youService.h"
 
-liste_clients liste_clients;
-
 void *
 init_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static char * result;
-		
-	
+
+	/*
+	 * insert server code here
+	 */
+
 	return (void *) &result;
 }
 
