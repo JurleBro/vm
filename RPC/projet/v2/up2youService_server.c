@@ -6,28 +6,14 @@
 
 #include "up2youService.h"
 
-liste_clients g_liste_clients;
-
 void *
 init_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static char * result;
 
-	g_liste_clients.liste[0].id = 0;
-	strcpy("Nadira", g_liste_clients.liste[0].prenom);
-	strcpy("Nadira", g_liste_clients.liste[0].nom);
-	g_liste_clients.liste[0].donnee_bc.numero = 100000000000;
-	g_liste_clients.liste[0].donnee_bc.crypto = 100;
-	g_liste_clients.liste[0].donnee_bc.date_exp.jour = 1;
-	g_liste_clients.liste[0].donnee_bc.date_exp.mois = 1;
-	g_liste_clients.liste[0].donnee_bc.date_exp.annee = 2022;
-	g_liste_clients.liste[0].rib = 1;
-	g_liste_clients.liste[0].pi = 1;
-	g_liste_clients.liste[0].fact_tel = 1;
-	g_liste_clients.liste[0].list_adresse[0].numero = 1;
-	strcpy("Rue du général", g_liste_clients.liste[0].list_adresse[0].voie);
-	g_liste_clients.liste[0].list_adresse[0].cp = 29200;
-	strcpy("Brest", g_liste_clients.liste[0].list_adresse[0].ville);
+	/*
+	 * insert server code here
+	 */
 
 	return (void *) &result;
 }
@@ -37,7 +23,9 @@ get_clients_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static liste_clients  result;
 
-	result=g_liste_clients;
+	/*
+	 * insert server code here
+	 */
 
 	return &result;
 }
@@ -46,150 +34,6 @@ client *
 get_client_1_svc(int *argp, struct svc_req *rqstp)
 {
 	static client  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-int *
-creer_commande_1_svc(int *argp, struct svc_req *rqstp)
-{
-	static int  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-liste_mobiles *
-get_mobiles_1_svc(void *argp, struct svc_req *rqstp)
-{
-	static liste_mobiles  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-mobile *
-get_mobile_1_svc(int *argp, struct svc_req *rqstp)
-{
-	static mobile  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-boolean *
-set_mobile_1_svc(params_set_mobile *argp, struct svc_req *rqstp)
-{
-	static boolean  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-liste_assurances *
-get_assurances_1_svc(void *argp, struct svc_req *rqstp)
-{
-	static liste_assurances  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-assurance *
-get_assurance_1_svc(int *argp, struct svc_req *rqstp)
-{
-	static assurance  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-boolean *
-set_assurance_1_svc(params_set_assurance *argp, struct svc_req *rqstp)
-{
-	static boolean  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-boolean *
-set_adresse_livraison_1_svc(params_set_adresse *argp, struct svc_req *rqstp)
-{
-	static boolean  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-liste_commandes *
-get_commandes_1_svc(void *argp, struct svc_req *rqstp)
-{
-	static liste_commandes  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-commande *
-get_commande_1_svc(int *argp, struct svc_req *rqstp)
-{
-	static commande  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-boolean *
-valide_commande_1_svc(int *argp, struct svc_req *rqstp)
-{
-	static boolean  result;
-
-	/*
-	 * insert server code here
-	 */
-
-	return &result;
-}
-
-boolean *
-set_date_livraison_1_svc(params_set_dl *argp, struct svc_req *rqstp)
-{
-	static boolean  result;
 
 	/*
 	 * insert server code here
