@@ -6,14 +6,28 @@
 
 #include "up2youService.h"
 
+liste_clients g_liste_clients;
+
 void *
 init_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static char * result;
 
-	/*
-	 * insert server code here
-	 */
+	g_liste_clients.liste[0].id = 0;
+	strcpy("Nadira", g_liste_clients.liste[0].prenom);
+	strcpy("Nadira", g_liste_clients.liste[0].nom);
+	g_liste_clients.liste[0].donnee_bc.numero = 100000000000;
+	g_liste_clients.liste[0].donnee_bc.crypto = 100;
+	g_liste_clients.liste[0].donnee_bc.date_exp.jour = 1;
+	g_liste_clients.liste[0].donnee_bc.date_exp.mois = 1;
+	g_liste_clients.liste[0].donnee_bc.date_exp.annee = 2022;
+	g_liste_clients.liste[0].rib = 1;
+	g_liste_clients.liste[0].pi = 1;
+	g_liste_clients.liste[0].fact_tel = 1;
+	g_liste_clients.liste[0].list_adresse[0].numero = 1;
+	strcpy("Rue du général", g_liste_clients.liste[0].list_adresse[0].voie);
+	g_liste_clients.liste[0].list_adresse[0].cp = 29200;
+	strcpy("Brest", g_liste_clients.liste[0].list_adresse[0].ville);
 
 	return (void *) &result;
 }
@@ -23,9 +37,7 @@ get_clients_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static liste_clients  result;
 
-	/*
-	 * insert server code here
-	 */
+	result = g_liste_clients;
 
 	return &result;
 }
@@ -35,9 +47,7 @@ get_client_1_svc(int *argp, struct svc_req *rqstp)
 {
 	static client  result;
 
-	/*
-	 * insert server code here
-	 */
+	result = g_liste_clients.liste[*argp];
 
 	return &result;
 }

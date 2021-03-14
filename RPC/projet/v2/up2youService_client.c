@@ -34,10 +34,15 @@ up2us_prog_1(char *host)
 	if (result_2 == (liste_clients *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("%s\n", result_2->liste[0].nom);
+
+	get_client_1_arg=0;
 	result_3 = get_client_1(&get_client_1_arg, clnt);
 	if (result_3 == (client *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("%s\n", result_3->nom);
+	
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
