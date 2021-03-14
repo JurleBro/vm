@@ -163,10 +163,10 @@ struct liste_clients {
 };
 typedef struct liste_clients liste_clients;
 
-struct liste_mobile {
+struct liste_mobiles {
 	struct mobile liste[nbMaxMobiles];
 };
-typedef struct liste_mobile liste_mobile;
+typedef struct liste_mobiles liste_mobiles;
 
 struct liste_assurances {
 	struct assurance liste[nbMaxAssurances];
@@ -304,7 +304,7 @@ extern  bool_t xdr_params_set_assurance (XDR *, params_set_assurance*);
 extern  bool_t xdr_params_set_adresse (XDR *, params_set_adresse*);
 extern  bool_t xdr_params_set_dl (XDR *, params_set_dl*);
 extern  bool_t xdr_liste_clients (XDR *, liste_clients*);
-extern  bool_t xdr_liste_mobile (XDR *, liste_mobile*);
+extern  bool_t xdr_liste_mobiles (XDR *, liste_mobiles*);
 extern  bool_t xdr_liste_assurances (XDR *, liste_assurances*);
 extern  bool_t xdr_liste_commandes (XDR *, liste_commandes*);
 
@@ -332,7 +332,7 @@ extern bool_t xdr_params_set_assurance ();
 extern bool_t xdr_params_set_adresse ();
 extern bool_t xdr_params_set_dl ();
 extern bool_t xdr_liste_clients ();
-extern bool_t xdr_liste_mobile ();
+extern bool_t xdr_liste_mobiles ();
 extern bool_t xdr_liste_assurances ();
 extern bool_t xdr_liste_commandes ();
 

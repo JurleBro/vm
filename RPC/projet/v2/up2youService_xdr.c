@@ -317,7 +317,7 @@ xdr_liste_clients (XDR *xdrs, liste_clients *objp)
 }
 
 bool_t
-xdr_liste_mobile (XDR *xdrs, liste_mobile *objp)
+xdr_liste_mobiles (XDR *xdrs, liste_mobiles *objp)
 {
 	register int32_t *buf;
 

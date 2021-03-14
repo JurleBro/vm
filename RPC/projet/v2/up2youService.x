@@ -108,7 +108,7 @@ struct params_set_dl {
 struct liste_clients{
 	struct client liste[nbMaxClients];
 };
-struct liste_mobile{
+struct liste_mobiles{
 	struct mobile liste[nbMaxMobiles];
 };
 struct liste_assurances{
