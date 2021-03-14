@@ -109,7 +109,27 @@ xdr_mobile (XDR *xdrs, mobile *objp)
 }
 
 bool_t
+xdr_e_type (XDR *xdrs, e_type *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_enum (xdrs, (enum_t *) objp))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_type (XDR *xdrs, type *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_e_type (xdrs, objp))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_e_couleur (XDR *xdrs, e_couleur *objp)
 {
 	register int32_t *buf;
 
@@ -123,13 +143,13 @@ xdr_couleur (XDR *xdrs, couleur *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_enum (xdrs, (enum_t *) objp))
+	 if (!xdr_e_couleur (xdrs, objp))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_connect (XDR *xdrs, connect *objp)
+xdr_e_connect (XDR *xdrs, e_connect *objp)
 {
 	register int32_t *buf;
 
@@ -143,7 +163,17 @@ xdr_connectivite (XDR *xdrs, connectivite *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_connect (xdrs, objp))
+	 if (!xdr_e_connect (xdrs, objp))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_e_memoire (XDR *xdrs, e_memoire *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_enum (xdrs, (enum_t *) objp))
 		 return FALSE;
 	return TRUE;
 }
@@ -153,7 +183,7 @@ xdr_memoire (XDR *xdrs, memoire *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_enum (xdrs, (enum_t *) objp))
+	 if (!xdr_e_memoire (xdrs, objp))
 		 return FALSE;
 	return TRUE;
 }

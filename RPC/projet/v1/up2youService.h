@@ -67,36 +67,39 @@ struct mobile {
 };
 typedef struct mobile mobile;
 
-enum type {
+enum e_type {
 	ACHAT = 0,
 	LOCATION = 1,
 };
-typedef enum type type;
+typedef enum e_type e_type;
 
+typedef e_type type;
 
-enum couleur {
+enum e_couleur {
 	ROUGE = 0,
 	VERT = 1,
 	BLEU = 2,
 };
-typedef enum couleur couleur;
+typedef enum e_couleur e_couleur;
 
+typedef e_couleur couleur;
 
-enum connect {
+enum e_connect {
 	G4 = 0,
 	G5 = 1,
 };
-typedef enum connect connect;
+typedef enum e_connect e_connect;
 
-typedef connect connectivite;
+typedef e_connect connectivite;
 
-enum memoire {
+enum e_memoire {
 	GO128 = 0,
 	GO256 = 1,
 	GO512 = 2,
 };
-typedef enum memoire memoire;
+typedef enum e_memoire e_memoire;
 
+typedef e_memoire memoire;
 
 struct params_mobile {
 	int id_mobile;
@@ -272,13 +275,13 @@ extern  bool_t xdr_adresse (XDR *, adresse*);
 extern  bool_t xdr_donnee_bc (XDR *, donnee_bc*);
 extern  bool_t xdr_client (XDR *, client*);
 extern  bool_t xdr_mobile (XDR *, mobile*);
+extern  bool_t xdr_e_type (XDR *, e_type*);
 extern  bool_t xdr_type (XDR *, type*);
-extern  bool_t xdr_type (XDR *, type*);
+extern  bool_t xdr_e_couleur (XDR *, e_couleur*);
 extern  bool_t xdr_couleur (XDR *, couleur*);
-extern  bool_t xdr_couleur (XDR *, couleur*);
-extern  bool_t xdr_connect (XDR *, connect*);
+extern  bool_t xdr_e_connect (XDR *, e_connect*);
 extern  bool_t xdr_connectivite (XDR *, connectivite*);
-extern  bool_t xdr_memoire (XDR *, memoire*);
+extern  bool_t xdr_e_memoire (XDR *, e_memoire*);
 extern  bool_t xdr_memoire (XDR *, memoire*);
 extern  bool_t xdr_params_mobile (XDR *, params_mobile*);
 extern  bool_t xdr_assurance (XDR *, assurance*);
@@ -300,13 +303,13 @@ extern bool_t xdr_adresse ();
 extern bool_t xdr_donnee_bc ();
 extern bool_t xdr_client ();
 extern bool_t xdr_mobile ();
+extern bool_t xdr_e_type ();
 extern bool_t xdr_type ();
-extern bool_t xdr_type ();
+extern bool_t xdr_e_couleur ();
 extern bool_t xdr_couleur ();
-extern bool_t xdr_couleur ();
-extern bool_t xdr_connect ();
+extern bool_t xdr_e_connect ();
 extern bool_t xdr_connectivite ();
-extern bool_t xdr_memoire ();
+extern bool_t xdr_e_memoire ();
 extern bool_t xdr_memoire ();
 extern bool_t xdr_params_mobile ();
 extern bool_t xdr_assurance ();
