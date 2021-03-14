@@ -354,9 +354,7 @@ xdr_liste_commandes(xdrs, objp)
 	liste_commandes *objp;
 {
 
-	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxCommandes,
-		sizeof (commande), (xdrproc_t) xdr_commande))
-		 return FALSE;
-	return TRUE;
+	if (!xdr_vector(xdrs, (char *)objp->liste, nbMaxCommandes, sizeof(commande), (xdrproc_t)xdr_commande))
+		return (FALSE);
+	return (TRUE);
 }
