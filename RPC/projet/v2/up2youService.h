@@ -371,7 +371,7 @@ bool_t xdr_liste_assurances();
 
 
 struct liste_commandes {
-	struct commandes liste[nbMaxCommandes];
+	struct commande liste[nbMaxCommandes];
 };
 typedef struct liste_commandes liste_commandes;
 #ifdef __cplusplus

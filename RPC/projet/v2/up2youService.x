@@ -115,7 +115,7 @@ struct liste_assurances{
 	struct assurance liste[nbMaxAssurances];
 };
 struct liste_commandes{
-	struct commandes liste[nbMaxCommandes];
+	struct commande liste[nbMaxCommandes];
 };
 
 program UP2US_PROG {
