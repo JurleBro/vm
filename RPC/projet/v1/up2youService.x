@@ -47,14 +47,14 @@ struct mobile {
 	float prix_achat;
 };
 
-enum type {ACHAT, LOCATION};
-typedef enum type type;
-enum couleur { ROUGE, VERT, BLEU};
-typedef enum couleur couleur;
-enum connect { G4, G5};
-typedef enum connect connectivite;
-enum memoire { GO128, GO256, GO512 };
-typedef enum memoire memoire;
+enum e_type {ACHAT, LOCATION};
+typedef enum e_type type;
+enum e_couleur { ROUGE, VERT, BLEU};
+typedef enum e_couleur couleur;
+enum e_connect { G4, G5};
+typedef enum e_connect connectivite;
+enum e_memoire { GO128, GO256, GO512 };
+typedef enum e_memoire memoire;
 
 struct params_mobile {
 	int id_mobile;
