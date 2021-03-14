@@ -158,13 +158,25 @@ struct params_set_dl {
 };
 typedef struct params_set_dl params_set_dl;
 
-typedef client liste_clients[nbMaxClients];
+struct liste_clients {
+	struct client liste[nbMaxClients];
+};
+typedef struct liste_clients liste_clients;
 
-typedef mobile liste_mobiles[nbMaxMobiles];
+struct liste_mobile {
+	struct mobile liste[nbMaxMobiles];
+};
+typedef struct liste_mobile liste_mobile;
 
-typedef assurance liste_assurances[nbMaxAssurances];
+struct liste_assurances {
+	struct assurance liste[nbMaxAssurances];
+};
+typedef struct liste_assurances liste_assurances;
 
-typedef commande liste_commandes[nbMaxCommandes];
+struct liste_commandes {
+	struct commandes liste[nbMaxCommandes];
+};
+typedef struct liste_commandes liste_commandes;
 
 #define UP2US_PROG 0x23456789
 #define UP2US_V_1 1
@@ -174,8 +186,8 @@ typedef commande liste_commandes[nbMaxCommandes];
 extern  void * init_1(void *, CLIENT *);
 extern  void * init_1_svc(void *, struct svc_req *);
 #define GET_CLIENTS 2
-extern  client * get_clients_1(void *, CLIENT *);
-extern  client * get_clients_1_svc(void *, struct svc_req *);
+extern  liste_clients * get_clients_1(void *, CLIENT *);
+extern  liste_clients * get_clients_1_svc(void *, struct svc_req *);
 #define GET_CLIENT 3
 extern  client * get_client_1(int *, CLIENT *);
 extern  client * get_client_1_svc(int *, struct svc_req *);
@@ -183,8 +195,8 @@ extern  client * get_client_1_svc(int *, struct svc_req *);
 extern  int * creer_commande_1(int *, CLIENT *);
 extern  int * creer_commande_1_svc(int *, struct svc_req *);
 #define GET_MOBILES 5
-extern  mobile * get_mobiles_1(void *, CLIENT *);
-extern  mobile * get_mobiles_1_svc(void *, struct svc_req *);
+extern  liste_mobiles * get_mobiles_1(void *, CLIENT *);
+extern  liste_mobiles * get_mobiles_1_svc(void *, struct svc_req *);
 #define GET_MOBILE 6
 extern  mobile * get_mobile_1(int *, CLIENT *);
 extern  mobile * get_mobile_1_svc(int *, struct svc_req *);
@@ -192,8 +204,8 @@ extern  mobile * get_mobile_1_svc(int *, struct svc_req *);
 extern  boolean * set_mobile_1(params_set_mobile *, CLIENT *);
 extern  boolean * set_mobile_1_svc(params_set_mobile *, struct svc_req *);
 #define GET_ASSURANCES 8
-extern  assurance * get_assurances_1(void *, CLIENT *);
-extern  assurance * get_assurances_1_svc(void *, struct svc_req *);
+extern  liste_assurances * get_assurances_1(void *, CLIENT *);
+extern  liste_assurances * get_assurances_1_svc(void *, struct svc_req *);
 #define GET_ASSURANCE 9
 extern  assurance * get_assurance_1(int *, CLIENT *);
 extern  assurance * get_assurance_1_svc(int *, struct svc_req *);
@@ -204,8 +216,8 @@ extern  boolean * set_assurance_1_svc(params_set_assurance *, struct svc_req *);
 extern  boolean * set_adresse_livraison_1(params_set_adresse *, CLIENT *);
 extern  boolean * set_adresse_livraison_1_svc(params_set_adresse *, struct svc_req *);
 #define GET_COMMANDES 12
-extern  commande * get_commandes_1(void *, CLIENT *);
-extern  commande * get_commandes_1_svc(void *, struct svc_req *);
+extern  liste_commandes * get_commandes_1(void *, CLIENT *);
+extern  liste_commandes * get_commandes_1_svc(void *, struct svc_req *);
 #define GET_COMMANDE 13
 extern  commande * get_commande_1(int *, CLIENT *);
 extern  commande * get_commande_1_svc(int *, struct svc_req *);
@@ -222,8 +234,8 @@ extern int up2us_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 extern  void * init_1();
 extern  void * init_1_svc();
 #define GET_CLIENTS 2
-extern  client * get_clients_1();
-extern  client * get_clients_1_svc();
+extern  liste_clients * get_clients_1();
+extern  liste_clients * get_clients_1_svc();
 #define GET_CLIENT 3
 extern  client * get_client_1();
 extern  client * get_client_1_svc();
@@ -231,8 +243,8 @@ extern  client * get_client_1_svc();
 extern  int * creer_commande_1();
 extern  int * creer_commande_1_svc();
 #define GET_MOBILES 5
-extern  mobile * get_mobiles_1();
-extern  mobile * get_mobiles_1_svc();
+extern  liste_mobiles * get_mobiles_1();
+extern  liste_mobiles * get_mobiles_1_svc();
 #define GET_MOBILE 6
 extern  mobile * get_mobile_1();
 extern  mobile * get_mobile_1_svc();
@@ -240,8 +252,8 @@ extern  mobile * get_mobile_1_svc();
 extern  boolean * set_mobile_1();
 extern  boolean * set_mobile_1_svc();
 #define GET_ASSURANCES 8
-extern  assurance * get_assurances_1();
-extern  assurance * get_assurances_1_svc();
+extern  liste_assurances * get_assurances_1();
+extern  liste_assurances * get_assurances_1_svc();
 #define GET_ASSURANCE 9
 extern  assurance * get_assurance_1();
 extern  assurance * get_assurance_1_svc();
@@ -252,8 +264,8 @@ extern  boolean * set_assurance_1_svc();
 extern  boolean * set_adresse_livraison_1();
 extern  boolean * set_adresse_livraison_1_svc();
 #define GET_COMMANDES 12
-extern  commande * get_commandes_1();
-extern  commande * get_commandes_1_svc();
+extern  liste_commandes * get_commandes_1();
+extern  liste_commandes * get_commandes_1_svc();
 #define GET_COMMANDE 13
 extern  commande * get_commande_1();
 extern  commande * get_commande_1_svc();
@@ -291,10 +303,10 @@ extern  bool_t xdr_params_set_mobile (XDR *, params_set_mobile*);
 extern  bool_t xdr_params_set_assurance (XDR *, params_set_assurance*);
 extern  bool_t xdr_params_set_adresse (XDR *, params_set_adresse*);
 extern  bool_t xdr_params_set_dl (XDR *, params_set_dl*);
-extern  bool_t xdr_liste_clients (XDR *, liste_clients);
-extern  bool_t xdr_liste_mobiles (XDR *, liste_mobiles);
-extern  bool_t xdr_liste_assurances (XDR *, liste_assurances);
-extern  bool_t xdr_liste_commandes (XDR *, liste_commandes);
+extern  bool_t xdr_liste_clients (XDR *, liste_clients*);
+extern  bool_t xdr_liste_mobile (XDR *, liste_mobile*);
+extern  bool_t xdr_liste_assurances (XDR *, liste_assurances*);
+extern  bool_t xdr_liste_commandes (XDR *, liste_commandes*);
 
 #else /* K&R C */
 extern bool_t xdr_boolean ();
@@ -320,7 +332,7 @@ extern bool_t xdr_params_set_assurance ();
 extern bool_t xdr_params_set_adresse ();
 extern bool_t xdr_params_set_dl ();
 extern bool_t xdr_liste_clients ();
-extern bool_t xdr_liste_mobiles ();
+extern bool_t xdr_liste_mobile ();
 extern bool_t xdr_liste_assurances ();
 extern bool_t xdr_liste_commandes ();
 

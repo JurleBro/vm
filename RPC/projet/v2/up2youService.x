@@ -108,9 +108,15 @@ struct params_set_dl {
 struct liste_clients{
 	struct client liste[nbMaxClients];
 };
-typedef struct mobile liste_mobiles[nbMaxMobiles];
-typedef struct assurance liste_assurances[nbMaxAssurances];
-typedef struct commande liste_commandes[nbMaxCommandes];
+struct liste_mobile{
+	struct mobile liste[nbMaxMobiles];
+};
+struct liste_assurances{
+	struct assurance liste[nbMaxAssurances];
+};
+struct liste_commandes{
+	struct commandes liste[nbMaxCommandes];
+};
 
 program UP2US_PROG {
 	version UP2US_V_1 {

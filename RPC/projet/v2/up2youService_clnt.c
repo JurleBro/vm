@@ -24,7 +24,7 @@ init_1(void *argp, CLIENT *clnt)
 	return ((void *)&clnt_res);
 }
 
-client *
+liste_clients *
 get_clients_1(void *argp, CLIENT *clnt)
 {
 	static liste_clients clnt_res;
@@ -69,7 +69,7 @@ creer_commande_1(int *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
-mobile *
+liste_mobiles *
 get_mobiles_1(void *argp, CLIENT *clnt)
 {
 	static liste_mobiles clnt_res;
@@ -114,7 +114,7 @@ set_mobile_1(params_set_mobile *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
-assurance *
+liste_assurances *
 get_assurances_1(void *argp, CLIENT *clnt)
 {
 	static liste_assurances clnt_res;
@@ -174,7 +174,7 @@ set_adresse_livraison_1(params_set_adresse *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
-commande *
+liste_commandes *
 get_commandes_1(void *argp, CLIENT *clnt)
 {
 	static liste_commandes clnt_res;

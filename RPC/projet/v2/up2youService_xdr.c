@@ -305,45 +305,49 @@ xdr_params_set_dl (XDR *xdrs, params_set_dl *objp)
 }
 
 bool_t
-xdr_liste_clients (XDR *xdrs, liste_clients objp)
+xdr_liste_clients (XDR *xdrs, liste_clients *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_vector (xdrs, (char *)objp, nbMaxClients,
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxClients,
 		sizeof (client), (xdrproc_t) xdr_client))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_liste_mobiles (XDR *xdrs, liste_mobiles objp)
+xdr_liste_mobile (XDR *xdrs, liste_mobile *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_vector (xdrs, (char *)objp, nbMaxMobiles,
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxMobiles,
 		sizeof (mobile), (xdrproc_t) xdr_mobile))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_liste_assurances (XDR *xdrs, liste_assurances objp)
+xdr_liste_assurances (XDR *xdrs, liste_assurances *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_vector (xdrs, (char *)objp, nbMaxAssurances,
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxAssurances,
 		sizeof (assurance), (xdrproc_t) xdr_assurance))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_liste_commandes (XDR *xdrs, liste_commandes objp)
+xdr_liste_commandes (XDR *xdrs, liste_commandes *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_vector (xdrs, (char *)objp, nbMaxCommandes,
-		sizeof (commande), (xdrproc_t) xdr_commande))
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxCommandes,
+		sizeof (struct commandes), (xdrproc_t) xdr_commandes))
 		 return FALSE;
 	return TRUE;
 }
