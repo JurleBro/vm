@@ -123,17 +123,5 @@ program UP2US_PROG {
 		void INIT() = 1;
 		liste_clients GET_CLIENTS() = 2;
 		client GET_CLIENT(int) = 3;
-		int CREER_COMMANDE(int) = 4;
-		liste_mobiles GET_MOBILES() = 5;
-		mobile GET_MOBILE(int) = 6;
-		boolean SET_MOBILE(params_set_mobile) = 7;
-		liste_assurances GET_ASSURANCES() = 8;
-		assurance GET_ASSURANCE(int) = 9;
-		boolean SET_ASSURANCE(params_set_assurance) = 10;
-		boolean SET_ADRESSE_LIVRAISON(params_set_adresse) = 11;
-		liste_commandes GET_COMMANDES() = 12;
-		commande GET_COMMANDE(int) = 13;
-		boolean VALIDE_COMMANDE(int) = 14;
-		boolean SET_DATE_LIVRAISON(params_set_dl) = 15;
 	} = 1;
 } = 0x23456789;
