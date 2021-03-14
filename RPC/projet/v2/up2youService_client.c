@@ -58,7 +58,9 @@ up2us_prog_1(char *host)
 	if (result_2 == (liste_clients *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_3 = get_client_1(&get_client_1_arg, clnt);
+
+	printf("%s\n",result_2->liste[0].nom);
+	/*result_3 = get_client_1(&get_client_1_arg, clnt);
 	if (result_3 == (client *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
@@ -109,7 +111,7 @@ up2us_prog_1(char *host)
 	result_15 = set_date_livraison_1(&set_date_livraison_1_arg, clnt);
 	if (result_15 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
-	}
+	}*/
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */

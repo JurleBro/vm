@@ -6,12 +6,9 @@
 #ifndef _UP2YOUSERVICE_H_RPCGEN
 #define _UP2YOUSERVICE_H_RPCGEN
 
+#define RPCGEN_VERSION	199506
+
 #include <rpc/rpc.h>
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #define sizeNom 45
 #define sizeVoieAdresse 100
@@ -24,6 +21,14 @@ extern "C" {
 #define nbMaxCommandes 10
 
 typedef int boolean;
+#ifdef __cplusplus
+extern "C" bool_t xdr_boolean(XDR *, boolean*);
+#elif __STDC__
+extern  bool_t xdr_boolean(XDR *, boolean*);
+#else /* Old Style C */
+bool_t xdr_boolean();
+#endif /* Old Style C */
+
 
 struct date {
 	int jour;
@@ -31,6 +36,14 @@ struct date {
 	int annee;
 };
 typedef struct date date;
+#ifdef __cplusplus
+extern "C" bool_t xdr_date(XDR *, date*);
+#elif __STDC__
+extern  bool_t xdr_date(XDR *, date*);
+#else /* Old Style C */
+bool_t xdr_date();
+#endif /* Old Style C */
+
 
 struct adresse {
 	int numero;
@@ -39,6 +52,14 @@ struct adresse {
 	char ville[sizeVilleAdresse];
 };
 typedef struct adresse adresse;
+#ifdef __cplusplus
+extern "C" bool_t xdr_adresse(XDR *, adresse*);
+#elif __STDC__
+extern  bool_t xdr_adresse(XDR *, adresse*);
+#else /* Old Style C */
+bool_t xdr_adresse();
+#endif /* Old Style C */
+
 
 struct donnee_bc {
 	int numero;
@@ -46,6 +67,14 @@ struct donnee_bc {
 	int crypto;
 };
 typedef struct donnee_bc donnee_bc;
+#ifdef __cplusplus
+extern "C" bool_t xdr_donnee_bc(XDR *, donnee_bc*);
+#elif __STDC__
+extern  bool_t xdr_donnee_bc(XDR *, donnee_bc*);
+#else /* Old Style C */
+bool_t xdr_donnee_bc();
+#endif /* Old Style C */
+
 
 struct client {
 	int id;
@@ -58,6 +87,14 @@ struct client {
 	struct adresse list_adresse[nbAdresseClient];
 };
 typedef struct client client;
+#ifdef __cplusplus
+extern "C" bool_t xdr_client(XDR *, client*);
+#elif __STDC__
+extern  bool_t xdr_client(XDR *, client*);
+#else /* Old Style C */
+bool_t xdr_client();
+#endif /* Old Style C */
+
 
 struct mobile {
 	int id;
@@ -66,14 +103,38 @@ struct mobile {
 	float prix_achat;
 };
 typedef struct mobile mobile;
+#ifdef __cplusplus
+extern "C" bool_t xdr_mobile(XDR *, mobile*);
+#elif __STDC__
+extern  bool_t xdr_mobile(XDR *, mobile*);
+#else /* Old Style C */
+bool_t xdr_mobile();
+#endif /* Old Style C */
+
 
 enum e_type {
 	ACHAT = 0,
 	LOCATION = 1,
 };
 typedef enum e_type e_type;
+#ifdef __cplusplus
+extern "C" bool_t xdr_e_type(XDR *, e_type*);
+#elif __STDC__
+extern  bool_t xdr_e_type(XDR *, e_type*);
+#else /* Old Style C */
+bool_t xdr_e_type();
+#endif /* Old Style C */
+
 
 typedef e_type type;
+#ifdef __cplusplus
+extern "C" bool_t xdr_type(XDR *, type*);
+#elif __STDC__
+extern  bool_t xdr_type(XDR *, type*);
+#else /* Old Style C */
+bool_t xdr_type();
+#endif /* Old Style C */
+
 
 enum e_couleur {
 	ROUGE = 0,
@@ -81,16 +142,48 @@ enum e_couleur {
 	BLEU = 2,
 };
 typedef enum e_couleur e_couleur;
+#ifdef __cplusplus
+extern "C" bool_t xdr_e_couleur(XDR *, e_couleur*);
+#elif __STDC__
+extern  bool_t xdr_e_couleur(XDR *, e_couleur*);
+#else /* Old Style C */
+bool_t xdr_e_couleur();
+#endif /* Old Style C */
+
 
 typedef e_couleur couleur;
+#ifdef __cplusplus
+extern "C" bool_t xdr_couleur(XDR *, couleur*);
+#elif __STDC__
+extern  bool_t xdr_couleur(XDR *, couleur*);
+#else /* Old Style C */
+bool_t xdr_couleur();
+#endif /* Old Style C */
+
 
 enum e_connect {
 	G4 = 0,
 	G5 = 1,
 };
 typedef enum e_connect e_connect;
+#ifdef __cplusplus
+extern "C" bool_t xdr_e_connect(XDR *, e_connect*);
+#elif __STDC__
+extern  bool_t xdr_e_connect(XDR *, e_connect*);
+#else /* Old Style C */
+bool_t xdr_e_connect();
+#endif /* Old Style C */
+
 
 typedef e_connect connectivite;
+#ifdef __cplusplus
+extern "C" bool_t xdr_connectivite(XDR *, connectivite*);
+#elif __STDC__
+extern  bool_t xdr_connectivite(XDR *, connectivite*);
+#else /* Old Style C */
+bool_t xdr_connectivite();
+#endif /* Old Style C */
+
 
 enum e_memoire {
 	GO128 = 0,
@@ -98,8 +191,24 @@ enum e_memoire {
 	GO512 = 2,
 };
 typedef enum e_memoire e_memoire;
+#ifdef __cplusplus
+extern "C" bool_t xdr_e_memoire(XDR *, e_memoire*);
+#elif __STDC__
+extern  bool_t xdr_e_memoire(XDR *, e_memoire*);
+#else /* Old Style C */
+bool_t xdr_e_memoire();
+#endif /* Old Style C */
+
 
 typedef e_memoire memoire;
+#ifdef __cplusplus
+extern "C" bool_t xdr_memoire(XDR *, memoire*);
+#elif __STDC__
+extern  bool_t xdr_memoire(XDR *, memoire*);
+#else /* Old Style C */
+bool_t xdr_memoire();
+#endif /* Old Style C */
+
 
 struct params_mobile {
 	int id_mobile;
@@ -109,6 +218,14 @@ struct params_mobile {
 	memoire memoire;
 };
 typedef struct params_mobile params_mobile;
+#ifdef __cplusplus
+extern "C" bool_t xdr_params_mobile(XDR *, params_mobile*);
+#elif __STDC__
+extern  bool_t xdr_params_mobile(XDR *, params_mobile*);
+#else /* Old Style C */
+bool_t xdr_params_mobile();
+#endif /* Old Style C */
+
 
 struct assurance {
 	int id;
@@ -116,6 +233,14 @@ struct assurance {
 	char description[sizeDescriptionAssurance];
 };
 typedef struct assurance assurance;
+#ifdef __cplusplus
+extern "C" bool_t xdr_assurance(XDR *, assurance*);
+#elif __STDC__
+extern  bool_t xdr_assurance(XDR *, assurance*);
+#else /* Old Style C */
+bool_t xdr_assurance();
+#endif /* Old Style C */
+
 
 struct commande {
 	int id;
@@ -126,6 +251,14 @@ struct commande {
 	boolean valide;
 };
 typedef struct commande commande;
+#ifdef __cplusplus
+extern "C" bool_t xdr_commande(XDR *, commande*);
+#elif __STDC__
+extern  bool_t xdr_commande(XDR *, commande*);
+#else /* Old Style C */
+bool_t xdr_commande();
+#endif /* Old Style C */
+
 
 struct livraison {
 	int id;
@@ -133,213 +266,266 @@ struct livraison {
 	struct date date;
 };
 typedef struct livraison livraison;
+#ifdef __cplusplus
+extern "C" bool_t xdr_livraison(XDR *, livraison*);
+#elif __STDC__
+extern  bool_t xdr_livraison(XDR *, livraison*);
+#else /* Old Style C */
+bool_t xdr_livraison();
+#endif /* Old Style C */
+
 
 struct params_set_mobile {
 	int id_commande;
 	struct params_mobile param_mobile;
 };
 typedef struct params_set_mobile params_set_mobile;
+#ifdef __cplusplus
+extern "C" bool_t xdr_params_set_mobile(XDR *, params_set_mobile*);
+#elif __STDC__
+extern  bool_t xdr_params_set_mobile(XDR *, params_set_mobile*);
+#else /* Old Style C */
+bool_t xdr_params_set_mobile();
+#endif /* Old Style C */
+
 
 struct params_set_assurance {
 	int id_commande;
 	int id_assurance;
 };
 typedef struct params_set_assurance params_set_assurance;
+#ifdef __cplusplus
+extern "C" bool_t xdr_params_set_assurance(XDR *, params_set_assurance*);
+#elif __STDC__
+extern  bool_t xdr_params_set_assurance(XDR *, params_set_assurance*);
+#else /* Old Style C */
+bool_t xdr_params_set_assurance();
+#endif /* Old Style C */
+
 
 struct params_set_adresse {
 	int id_commande;
 	int id_adresse_client;
 };
 typedef struct params_set_adresse params_set_adresse;
+#ifdef __cplusplus
+extern "C" bool_t xdr_params_set_adresse(XDR *, params_set_adresse*);
+#elif __STDC__
+extern  bool_t xdr_params_set_adresse(XDR *, params_set_adresse*);
+#else /* Old Style C */
+bool_t xdr_params_set_adresse();
+#endif /* Old Style C */
+
 
 struct params_set_dl {
 	int id_commande;
 	struct date date;
 };
 typedef struct params_set_dl params_set_dl;
+#ifdef __cplusplus
+extern "C" bool_t xdr_params_set_dl(XDR *, params_set_dl*);
+#elif __STDC__
+extern  bool_t xdr_params_set_dl(XDR *, params_set_dl*);
+#else /* Old Style C */
+bool_t xdr_params_set_dl();
+#endif /* Old Style C */
+
 
 struct liste_clients {
 	struct client liste[nbMaxClients];
 };
 typedef struct liste_clients liste_clients;
+#ifdef __cplusplus
+extern "C" bool_t xdr_liste_clients(XDR *, liste_clients*);
+#elif __STDC__
+extern  bool_t xdr_liste_clients(XDR *, liste_clients*);
+#else /* Old Style C */
+bool_t xdr_liste_clients();
+#endif /* Old Style C */
+
 
 struct liste_mobiles {
 	struct mobile liste[nbMaxMobiles];
 };
 typedef struct liste_mobiles liste_mobiles;
+#ifdef __cplusplus
+extern "C" bool_t xdr_liste_mobiles(XDR *, liste_mobiles*);
+#elif __STDC__
+extern  bool_t xdr_liste_mobiles(XDR *, liste_mobiles*);
+#else /* Old Style C */
+bool_t xdr_liste_mobiles();
+#endif /* Old Style C */
+
 
 struct liste_assurances {
 	struct assurance liste[nbMaxAssurances];
 };
 typedef struct liste_assurances liste_assurances;
+#ifdef __cplusplus
+extern "C" bool_t xdr_liste_assurances(XDR *, liste_assurances*);
+#elif __STDC__
+extern  bool_t xdr_liste_assurances(XDR *, liste_assurances*);
+#else /* Old Style C */
+bool_t xdr_liste_assurances();
+#endif /* Old Style C */
+
 
 struct liste_commandes {
 	struct commandes liste[nbMaxCommandes];
 };
 typedef struct liste_commandes liste_commandes;
+#ifdef __cplusplus
+extern "C" bool_t xdr_liste_commandes(XDR *, liste_commandes*);
+#elif __STDC__
+extern  bool_t xdr_liste_commandes(XDR *, liste_commandes*);
+#else /* Old Style C */
+bool_t xdr_liste_commandes();
+#endif /* Old Style C */
 
-#define UP2US_PROG 0x23456789
-#define UP2US_V_1 1
 
-#if defined(__STDC__) || defined(__cplusplus)
-#define INIT 1
-extern  void * init_1(void *, CLIENT *);
-extern  void * init_1_svc(void *, struct svc_req *);
-#define GET_CLIENTS 2
-extern  liste_clients * get_clients_1(void *, CLIENT *);
-extern  liste_clients * get_clients_1_svc(void *, struct svc_req *);
-#define GET_CLIENT 3
-extern  client * get_client_1(int *, CLIENT *);
-extern  client * get_client_1_svc(int *, struct svc_req *);
-#define CREER_COMMANDE 4
-extern  int * creer_commande_1(int *, CLIENT *);
-extern  int * creer_commande_1_svc(int *, struct svc_req *);
-#define GET_MOBILES 5
-extern  liste_mobiles * get_mobiles_1(void *, CLIENT *);
-extern  liste_mobiles * get_mobiles_1_svc(void *, struct svc_req *);
-#define GET_MOBILE 6
-extern  mobile * get_mobile_1(int *, CLIENT *);
-extern  mobile * get_mobile_1_svc(int *, struct svc_req *);
-#define SET_MOBILE 7
-extern  boolean * set_mobile_1(params_set_mobile *, CLIENT *);
-extern  boolean * set_mobile_1_svc(params_set_mobile *, struct svc_req *);
-#define GET_ASSURANCES 8
-extern  liste_assurances * get_assurances_1(void *, CLIENT *);
-extern  liste_assurances * get_assurances_1_svc(void *, struct svc_req *);
-#define GET_ASSURANCE 9
-extern  assurance * get_assurance_1(int *, CLIENT *);
-extern  assurance * get_assurance_1_svc(int *, struct svc_req *);
-#define SET_ASSURANCE 10
-extern  boolean * set_assurance_1(params_set_assurance *, CLIENT *);
-extern  boolean * set_assurance_1_svc(params_set_assurance *, struct svc_req *);
-#define SET_ADRESSE_LIVRAISON 11
-extern  boolean * set_adresse_livraison_1(params_set_adresse *, CLIENT *);
-extern  boolean * set_adresse_livraison_1_svc(params_set_adresse *, struct svc_req *);
-#define GET_COMMANDES 12
-extern  liste_commandes * get_commandes_1(void *, CLIENT *);
-extern  liste_commandes * get_commandes_1_svc(void *, struct svc_req *);
-#define GET_COMMANDE 13
-extern  commande * get_commande_1(int *, CLIENT *);
-extern  commande * get_commande_1_svc(int *, struct svc_req *);
-#define VALIDE_COMMANDE 14
-extern  boolean * valide_commande_1(int *, CLIENT *);
-extern  boolean * valide_commande_1_svc(int *, struct svc_req *);
-#define SET_DATE_LIVRAISON 15
-extern  boolean * set_date_livraison_1(params_set_dl *, CLIENT *);
-extern  boolean * set_date_livraison_1_svc(params_set_dl *, struct svc_req *);
-extern int up2us_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
-
-#else /* K&R C */
-#define INIT 1
-extern  void * init_1();
-extern  void * init_1_svc();
-#define GET_CLIENTS 2
-extern  liste_clients * get_clients_1();
-extern  liste_clients * get_clients_1_svc();
-#define GET_CLIENT 3
-extern  client * get_client_1();
-extern  client * get_client_1_svc();
-#define CREER_COMMANDE 4
-extern  int * creer_commande_1();
-extern  int * creer_commande_1_svc();
-#define GET_MOBILES 5
-extern  liste_mobiles * get_mobiles_1();
-extern  liste_mobiles * get_mobiles_1_svc();
-#define GET_MOBILE 6
-extern  mobile * get_mobile_1();
-extern  mobile * get_mobile_1_svc();
-#define SET_MOBILE 7
-extern  boolean * set_mobile_1();
-extern  boolean * set_mobile_1_svc();
-#define GET_ASSURANCES 8
-extern  liste_assurances * get_assurances_1();
-extern  liste_assurances * get_assurances_1_svc();
-#define GET_ASSURANCE 9
-extern  assurance * get_assurance_1();
-extern  assurance * get_assurance_1_svc();
-#define SET_ASSURANCE 10
-extern  boolean * set_assurance_1();
-extern  boolean * set_assurance_1_svc();
-#define SET_ADRESSE_LIVRAISON 11
-extern  boolean * set_adresse_livraison_1();
-extern  boolean * set_adresse_livraison_1_svc();
-#define GET_COMMANDES 12
-extern  liste_commandes * get_commandes_1();
-extern  liste_commandes * get_commandes_1_svc();
-#define GET_COMMANDE 13
-extern  commande * get_commande_1();
-extern  commande * get_commande_1_svc();
-#define VALIDE_COMMANDE 14
-extern  boolean * valide_commande_1();
-extern  boolean * valide_commande_1_svc();
-#define SET_DATE_LIVRAISON 15
-extern  boolean * set_date_livraison_1();
-extern  boolean * set_date_livraison_1_svc();
-extern int up2us_prog_1_freeresult ();
-#endif /* K&R C */
-
-/* the xdr functions */
-
-#if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_boolean (XDR *, boolean*);
-extern  bool_t xdr_date (XDR *, date*);
-extern  bool_t xdr_adresse (XDR *, adresse*);
-extern  bool_t xdr_donnee_bc (XDR *, donnee_bc*);
-extern  bool_t xdr_client (XDR *, client*);
-extern  bool_t xdr_mobile (XDR *, mobile*);
-extern  bool_t xdr_e_type (XDR *, e_type*);
-extern  bool_t xdr_type (XDR *, type*);
-extern  bool_t xdr_e_couleur (XDR *, e_couleur*);
-extern  bool_t xdr_couleur (XDR *, couleur*);
-extern  bool_t xdr_e_connect (XDR *, e_connect*);
-extern  bool_t xdr_connectivite (XDR *, connectivite*);
-extern  bool_t xdr_e_memoire (XDR *, e_memoire*);
-extern  bool_t xdr_memoire (XDR *, memoire*);
-extern  bool_t xdr_params_mobile (XDR *, params_mobile*);
-extern  bool_t xdr_assurance (XDR *, assurance*);
-extern  bool_t xdr_commande (XDR *, commande*);
-extern  bool_t xdr_livraison (XDR *, livraison*);
-extern  bool_t xdr_params_set_mobile (XDR *, params_set_mobile*);
-extern  bool_t xdr_params_set_assurance (XDR *, params_set_assurance*);
-extern  bool_t xdr_params_set_adresse (XDR *, params_set_adresse*);
-extern  bool_t xdr_params_set_dl (XDR *, params_set_dl*);
-extern  bool_t xdr_liste_clients (XDR *, liste_clients*);
-extern  bool_t xdr_liste_mobiles (XDR *, liste_mobiles*);
-extern  bool_t xdr_liste_assurances (XDR *, liste_assurances*);
-extern  bool_t xdr_liste_commandes (XDR *, liste_commandes*);
-
-#else /* K&R C */
-extern bool_t xdr_boolean ();
-extern bool_t xdr_date ();
-extern bool_t xdr_adresse ();
-extern bool_t xdr_donnee_bc ();
-extern bool_t xdr_client ();
-extern bool_t xdr_mobile ();
-extern bool_t xdr_e_type ();
-extern bool_t xdr_type ();
-extern bool_t xdr_e_couleur ();
-extern bool_t xdr_couleur ();
-extern bool_t xdr_e_connect ();
-extern bool_t xdr_connectivite ();
-extern bool_t xdr_e_memoire ();
-extern bool_t xdr_memoire ();
-extern bool_t xdr_params_mobile ();
-extern bool_t xdr_assurance ();
-extern bool_t xdr_commande ();
-extern bool_t xdr_livraison ();
-extern bool_t xdr_params_set_mobile ();
-extern bool_t xdr_params_set_assurance ();
-extern bool_t xdr_params_set_adresse ();
-extern bool_t xdr_params_set_dl ();
-extern bool_t xdr_liste_clients ();
-extern bool_t xdr_liste_mobiles ();
-extern bool_t xdr_liste_assurances ();
-extern bool_t xdr_liste_commandes ();
-
-#endif /* K&R C */
+#define UP2US_PROG ((rpc_uint)0x23456789)
+#define UP2US_V_1 ((rpc_uint)1)
 
 #ifdef __cplusplus
-}
-#endif
+#define INIT ((rpc_uint)1)
+extern "C" void * init_1(void *, CLIENT *);
+extern "C" void * init_1_svc(void *, struct svc_req *);
+#define GET_CLIENTS ((rpc_uint)2)
+extern "C" liste_clients * get_clients_1(void *, CLIENT *);
+extern "C" liste_clients * get_clients_1_svc(void *, struct svc_req *);
+#define GET_CLIENT ((rpc_uint)3)
+extern "C" client * get_client_1(int *, CLIENT *);
+extern "C" client * get_client_1_svc(int *, struct svc_req *);
+#define CREER_COMMANDE ((rpc_uint)4)
+extern "C" int * creer_commande_1(int *, CLIENT *);
+extern "C" int * creer_commande_1_svc(int *, struct svc_req *);
+#define GET_MOBILES ((rpc_uint)5)
+extern "C" liste_mobiles * get_mobiles_1(void *, CLIENT *);
+extern "C" liste_mobiles * get_mobiles_1_svc(void *, struct svc_req *);
+#define GET_MOBILE ((rpc_uint)6)
+extern "C" mobile * get_mobile_1(int *, CLIENT *);
+extern "C" mobile * get_mobile_1_svc(int *, struct svc_req *);
+#define SET_MOBILE ((rpc_uint)7)
+extern "C" boolean * set_mobile_1(params_set_mobile *, CLIENT *);
+extern "C" boolean * set_mobile_1_svc(params_set_mobile *, struct svc_req *);
+#define GET_ASSURANCES ((rpc_uint)8)
+extern "C" liste_assurances * get_assurances_1(void *, CLIENT *);
+extern "C" liste_assurances * get_assurances_1_svc(void *, struct svc_req *);
+#define GET_ASSURANCE ((rpc_uint)9)
+extern "C" assurance * get_assurance_1(int *, CLIENT *);
+extern "C" assurance * get_assurance_1_svc(int *, struct svc_req *);
+#define SET_ASSURANCE ((rpc_uint)10)
+extern "C" boolean * set_assurance_1(params_set_assurance *, CLIENT *);
+extern "C" boolean * set_assurance_1_svc(params_set_assurance *, struct svc_req *);
+#define SET_ADRESSE_LIVRAISON ((rpc_uint)11)
+extern "C" boolean * set_adresse_livraison_1(params_set_adresse *, CLIENT *);
+extern "C" boolean * set_adresse_livraison_1_svc(params_set_adresse *, struct svc_req *);
+#define GET_COMMANDES ((rpc_uint)12)
+extern "C" liste_commandes * get_commandes_1(void *, CLIENT *);
+extern "C" liste_commandes * get_commandes_1_svc(void *, struct svc_req *);
+#define GET_COMMANDE ((rpc_uint)13)
+extern "C" commande * get_commande_1(int *, CLIENT *);
+extern "C" commande * get_commande_1_svc(int *, struct svc_req *);
+#define VALIDE_COMMANDE ((rpc_uint)14)
+extern "C" boolean * valide_commande_1(int *, CLIENT *);
+extern "C" boolean * valide_commande_1_svc(int *, struct svc_req *);
+#define SET_DATE_LIVRAISON ((rpc_uint)15)
+extern "C" boolean * set_date_livraison_1(params_set_dl *, CLIENT *);
+extern "C" boolean * set_date_livraison_1_svc(params_set_dl *, struct svc_req *);
+
+#elif __STDC__
+#define INIT ((rpc_uint)1)
+extern  void * init_1(void *, CLIENT *);
+extern  void * init_1_svc(void *, struct svc_req *);
+#define GET_CLIENTS ((rpc_uint)2)
+extern  liste_clients * get_clients_1(void *, CLIENT *);
+extern  liste_clients * get_clients_1_svc(void *, struct svc_req *);
+#define GET_CLIENT ((rpc_uint)3)
+extern  client * get_client_1(int *, CLIENT *);
+extern  client * get_client_1_svc(int *, struct svc_req *);
+#define CREER_COMMANDE ((rpc_uint)4)
+extern  int * creer_commande_1(int *, CLIENT *);
+extern  int * creer_commande_1_svc(int *, struct svc_req *);
+#define GET_MOBILES ((rpc_uint)5)
+extern  liste_mobiles * get_mobiles_1(void *, CLIENT *);
+extern  liste_mobiles * get_mobiles_1_svc(void *, struct svc_req *);
+#define GET_MOBILE ((rpc_uint)6)
+extern  mobile * get_mobile_1(int *, CLIENT *);
+extern  mobile * get_mobile_1_svc(int *, struct svc_req *);
+#define SET_MOBILE ((rpc_uint)7)
+extern  boolean * set_mobile_1(params_set_mobile *, CLIENT *);
+extern  boolean * set_mobile_1_svc(params_set_mobile *, struct svc_req *);
+#define GET_ASSURANCES ((rpc_uint)8)
+extern  liste_assurances * get_assurances_1(void *, CLIENT *);
+extern  liste_assurances * get_assurances_1_svc(void *, struct svc_req *);
+#define GET_ASSURANCE ((rpc_uint)9)
+extern  assurance * get_assurance_1(int *, CLIENT *);
+extern  assurance * get_assurance_1_svc(int *, struct svc_req *);
+#define SET_ASSURANCE ((rpc_uint)10)
+extern  boolean * set_assurance_1(params_set_assurance *, CLIENT *);
+extern  boolean * set_assurance_1_svc(params_set_assurance *, struct svc_req *);
+#define SET_ADRESSE_LIVRAISON ((rpc_uint)11)
+extern  boolean * set_adresse_livraison_1(params_set_adresse *, CLIENT *);
+extern  boolean * set_adresse_livraison_1_svc(params_set_adresse *, struct svc_req *);
+#define GET_COMMANDES ((rpc_uint)12)
+extern  liste_commandes * get_commandes_1(void *, CLIENT *);
+extern  liste_commandes * get_commandes_1_svc(void *, struct svc_req *);
+#define GET_COMMANDE ((rpc_uint)13)
+extern  commande * get_commande_1(int *, CLIENT *);
+extern  commande * get_commande_1_svc(int *, struct svc_req *);
+#define VALIDE_COMMANDE ((rpc_uint)14)
+extern  boolean * valide_commande_1(int *, CLIENT *);
+extern  boolean * valide_commande_1_svc(int *, struct svc_req *);
+#define SET_DATE_LIVRAISON ((rpc_uint)15)
+extern  boolean * set_date_livraison_1(params_set_dl *, CLIENT *);
+extern  boolean * set_date_livraison_1_svc(params_set_dl *, struct svc_req *);
+
+#else /* Old Style C */
+#define INIT ((rpc_uint)1)
+extern  void * init_1();
+extern  void * init_1_svc();
+#define GET_CLIENTS ((rpc_uint)2)
+extern  liste_clients * get_clients_1();
+extern  liste_clients * get_clients_1_svc();
+#define GET_CLIENT ((rpc_uint)3)
+extern  client * get_client_1();
+extern  client * get_client_1_svc();
+#define CREER_COMMANDE ((rpc_uint)4)
+extern  int * creer_commande_1();
+extern  int * creer_commande_1_svc();
+#define GET_MOBILES ((rpc_uint)5)
+extern  liste_mobiles * get_mobiles_1();
+extern  liste_mobiles * get_mobiles_1_svc();
+#define GET_MOBILE ((rpc_uint)6)
+extern  mobile * get_mobile_1();
+extern  mobile * get_mobile_1_svc();
+#define SET_MOBILE ((rpc_uint)7)
+extern  boolean * set_mobile_1();
+extern  boolean * set_mobile_1_svc();
+#define GET_ASSURANCES ((rpc_uint)8)
+extern  liste_assurances * get_assurances_1();
+extern  liste_assurances * get_assurances_1_svc();
+#define GET_ASSURANCE ((rpc_uint)9)
+extern  assurance * get_assurance_1();
+extern  assurance * get_assurance_1_svc();
+#define SET_ASSURANCE ((rpc_uint)10)
+extern  boolean * set_assurance_1();
+extern  boolean * set_assurance_1_svc();
+#define SET_ADRESSE_LIVRAISON ((rpc_uint)11)
+extern  boolean * set_adresse_livraison_1();
+extern  boolean * set_adresse_livraison_1_svc();
+#define GET_COMMANDES ((rpc_uint)12)
+extern  liste_commandes * get_commandes_1();
+extern  liste_commandes * get_commandes_1_svc();
+#define GET_COMMANDE ((rpc_uint)13)
+extern  commande * get_commande_1();
+extern  commande * get_commande_1_svc();
+#define VALIDE_COMMANDE ((rpc_uint)14)
+extern  boolean * valide_commande_1();
+extern  boolean * valide_commande_1_svc();
+#define SET_DATE_LIVRAISON ((rpc_uint)15)
+extern  boolean * set_date_livraison_1();
+extern  boolean * set_date_livraison_1_svc();
+#endif /* Old Style C */
 
 #endif /* !_UP2YOUSERVICE_H_RPCGEN */

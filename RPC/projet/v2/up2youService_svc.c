@@ -4,20 +4,71 @@
  */
 
 #include "up2youService.h"
+#include <sys/ioctl.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <rpc/pmap_clnt.h>
-#include <string.h>
+#include <netdb.h>
+#include <signal.h>
+#include <sys/ttycom.h>
 #include <memory.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <syslog.h>
 
-#ifndef SIG_PF
+#ifdef __STDC__
 #define SIG_PF void(*)(int)
 #endif
 
+#ifdef DEBUG
+#define RPC_SVC_FG
+#endif
+
+#define _RPCSVC_CLOSEDOWN 120
+static int _rpcpmstart;		/* Started by a port monitor ? */
+static int _rpcfdtype;		/* Whether Stream or Datagram ? */
+static int _rpcsvcdirty;	/* Still serving ? */
+
+static
+void _msgout(msg)
+	char *msg;
+{
+#ifdef RPC_SVC_FG
+	if (_rpcpmstart)
+		syslog(LOG_ERR, "%s", msg);
+	else
+		(void) fprintf(stderr, "%s\n", msg);
+#else
+	syslog(LOG_ERR, "%s", msg);
+#endif
+}
+
 static void
-up2us_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
+closedown()
+{
+	if (_rpcsvcdirty == 0) {
+		extern fd_set svc_fdset;
+		static int size;
+		int i, openfd;
+
+		if (_rpcfdtype == SOCK_DGRAM)
+			exit(0);
+		if (size == 0) {
+			size = getdtablesize();
+		}
+		for (i = 0, openfd = 0; i < size && openfd < 2; i++)
+			if (FD_ISSET(i, &svc_fdset))
+				openfd++;
+		if (openfd <= (_rpcpmstart?0:1))
+			exit(0);
+	}
+	(void) alarm(_RPCSVC_CLOSEDOWN);
+}
+
+static void
+up2us_prog_1(rqstp, transp)
+	struct svc_req *rqstp;
+	SVCXPRT *transp;
 {
 	union {
 		int get_client_1_arg;
@@ -32,153 +83,224 @@ up2us_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		params_set_dl set_date_livraison_1_arg;
 	} argument;
 	char *result;
-	xdrproc_t _xdr_argument, _xdr_result;
-	char *(*local)(char *, struct svc_req *);
+	bool_t (*xdr_argument)(), (*xdr_result)();
+	char *(*local)();
 
+	_rpcsvcdirty = 1;
 	switch (rqstp->rq_proc) {
 	case NULLPROC:
-		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
+		(void) svc_sendreply(transp, (xdrproc_t) xdr_void, (char *)NULL);
+		_rpcsvcdirty = 0;
 		return;
 
 	case INIT:
-		_xdr_argument = (xdrproc_t) xdr_void;
-		_xdr_result = (xdrproc_t) xdr_void;
-		local = (char *(*)(char *, struct svc_req *)) init_1_svc;
+		xdr_argument = xdr_void;
+		xdr_result = xdr_void;
+		local = (char *(*)()) init_1_svc;
 		break;
 
 	case GET_CLIENTS:
-		_xdr_argument = (xdrproc_t) xdr_void;
-		_xdr_result = (xdrproc_t) xdr_liste_clients;
-		local = (char *(*)(char *, struct svc_req *)) get_clients_1_svc;
+		xdr_argument = xdr_void;
+		xdr_result = xdr_liste_clients;
+		local = (char *(*)()) get_clients_1_svc;
 		break;
 
 	case GET_CLIENT:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_client;
-		local = (char *(*)(char *, struct svc_req *)) get_client_1_svc;
+		xdr_argument = xdr_int;
+		xdr_result = xdr_client;
+		local = (char *(*)()) get_client_1_svc;
 		break;
 
 	case CREER_COMMANDE:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) creer_commande_1_svc;
+		xdr_argument = xdr_int;
+		xdr_result = xdr_int;
+		local = (char *(*)()) creer_commande_1_svc;
 		break;
 
 	case GET_MOBILES:
-		_xdr_argument = (xdrproc_t) xdr_void;
-		_xdr_result = (xdrproc_t) xdr_liste_mobiles;
-		local = (char *(*)(char *, struct svc_req *)) get_mobiles_1_svc;
+		xdr_argument = xdr_void;
+		xdr_result = xdr_liste_mobiles;
+		local = (char *(*)()) get_mobiles_1_svc;
 		break;
 
 	case GET_MOBILE:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_mobile;
-		local = (char *(*)(char *, struct svc_req *)) get_mobile_1_svc;
+		xdr_argument = xdr_int;
+		xdr_result = xdr_mobile;
+		local = (char *(*)()) get_mobile_1_svc;
 		break;
 
 	case SET_MOBILE:
-		_xdr_argument = (xdrproc_t) xdr_params_set_mobile;
-		_xdr_result = (xdrproc_t) xdr_boolean;
-		local = (char *(*)(char *, struct svc_req *)) set_mobile_1_svc;
+		xdr_argument = xdr_params_set_mobile;
+		xdr_result = xdr_boolean;
+		local = (char *(*)()) set_mobile_1_svc;
 		break;
 
 	case GET_ASSURANCES:
-		_xdr_argument = (xdrproc_t) xdr_void;
-		_xdr_result = (xdrproc_t) xdr_liste_assurances;
-		local = (char *(*)(char *, struct svc_req *)) get_assurances_1_svc;
+		xdr_argument = xdr_void;
+		xdr_result = xdr_liste_assurances;
+		local = (char *(*)()) get_assurances_1_svc;
 		break;
 
 	case GET_ASSURANCE:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_assurance;
-		local = (char *(*)(char *, struct svc_req *)) get_assurance_1_svc;
+		xdr_argument = xdr_int;
+		xdr_result = xdr_assurance;
+		local = (char *(*)()) get_assurance_1_svc;
 		break;
 
 	case SET_ASSURANCE:
-		_xdr_argument = (xdrproc_t) xdr_params_set_assurance;
-		_xdr_result = (xdrproc_t) xdr_boolean;
-		local = (char *(*)(char *, struct svc_req *)) set_assurance_1_svc;
+		xdr_argument = xdr_params_set_assurance;
+		xdr_result = xdr_boolean;
+		local = (char *(*)()) set_assurance_1_svc;
 		break;
 
 	case SET_ADRESSE_LIVRAISON:
-		_xdr_argument = (xdrproc_t) xdr_params_set_adresse;
-		_xdr_result = (xdrproc_t) xdr_boolean;
-		local = (char *(*)(char *, struct svc_req *)) set_adresse_livraison_1_svc;
+		xdr_argument = xdr_params_set_adresse;
+		xdr_result = xdr_boolean;
+		local = (char *(*)()) set_adresse_livraison_1_svc;
 		break;
 
 	case GET_COMMANDES:
-		_xdr_argument = (xdrproc_t) xdr_void;
-		_xdr_result = (xdrproc_t) xdr_liste_commandes;
-		local = (char *(*)(char *, struct svc_req *)) get_commandes_1_svc;
+		xdr_argument = xdr_void;
+		xdr_result = xdr_liste_commandes;
+		local = (char *(*)()) get_commandes_1_svc;
 		break;
 
 	case GET_COMMANDE:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_commande;
-		local = (char *(*)(char *, struct svc_req *)) get_commande_1_svc;
+		xdr_argument = xdr_int;
+		xdr_result = xdr_commande;
+		local = (char *(*)()) get_commande_1_svc;
 		break;
 
 	case VALIDE_COMMANDE:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_boolean;
-		local = (char *(*)(char *, struct svc_req *)) valide_commande_1_svc;
+		xdr_argument = xdr_int;
+		xdr_result = xdr_boolean;
+		local = (char *(*)()) valide_commande_1_svc;
 		break;
 
 	case SET_DATE_LIVRAISON:
-		_xdr_argument = (xdrproc_t) xdr_params_set_dl;
-		_xdr_result = (xdrproc_t) xdr_boolean;
-		local = (char *(*)(char *, struct svc_req *)) set_date_livraison_1_svc;
+		xdr_argument = xdr_params_set_dl;
+		xdr_result = xdr_boolean;
+		local = (char *(*)()) set_date_livraison_1_svc;
 		break;
 
 	default:
-		svcerr_noproc (transp);
+		svcerr_noproc(transp);
+		_rpcsvcdirty = 0;
 		return;
 	}
-	memset ((char *)&argument, 0, sizeof (argument));
-	if (!svc_getargs (transp, (xdrproc_t) _xdr_argument, (caddr_t) &argument)) {
-		svcerr_decode (transp);
+	(void) memset((char *)&argument, 0, sizeof (argument));
+	if (!svc_getargs(transp, xdr_argument, (caddr_t) &argument)) {
+		svcerr_decode(transp);
+		_rpcsvcdirty = 0;
 		return;
 	}
-	result = (*local)((char *)&argument, rqstp);
-	if (result != NULL && !svc_sendreply(transp, (xdrproc_t) _xdr_result, result)) {
-		svcerr_systemerr (transp);
+	result = (*local)(&argument, rqstp);
+	if (result != NULL && !svc_sendreply(transp, (xdrproc_t) xdr_result, result)) {
+		svcerr_systemerr(transp);
 	}
-	if (!svc_freeargs (transp, (xdrproc_t) _xdr_argument, (caddr_t) &argument)) {
-		fprintf (stderr, "%s", "unable to free arguments");
-		exit (1);
+	if (!svc_freeargs(transp, xdr_argument, (caddr_t) &argument)) {
+		_msgout("unable to free arguments");
+		exit(1);
 	}
+	_rpcsvcdirty = 0;
 	return;
 }
 
+
+
 int
-main (int argc, char **argv)
+main(argc, argv)
+int argc;
+char *argv[];
 {
-	register SVCXPRT *transp;
+	SVCXPRT *transp = NULL;
+	int sock;
+	int proto = 0;
+	struct sockaddr_in saddr;
+	int asize = sizeof (saddr);
 
-	pmap_unset (UP2US_PROG, UP2US_V_1);
+	if (getsockname(0, (struct sockaddr *)&saddr, &asize) == 0) {
+		int ssize = sizeof (int);
 
-	transp = svcudp_create(RPC_ANYSOCK);
-	if (transp == NULL) {
-		fprintf (stderr, "%s", "cannot create udp service.");
+		if (saddr.sin_family != AF_INET)
+			exit(1);
+		if (getsockopt(0, SOL_SOCKET, SO_TYPE,
+				(char *)&_rpcfdtype, &ssize) == -1)
+			exit(1);
+		sock = 0;
+		_rpcpmstart = 1;
+		proto = 0;
+		openlog("up2youService", LOG_PID, LOG_DAEMON);
+	} else {
+#ifndef RPC_SVC_FG
+		int size;
+		int pid, i;
+
+		pid = fork();
+		if (pid < 0) {
+			perror("cannot fork");
+			exit(1);
+		}
+		if (pid)
+			exit(0);
+		size = getdtablesize();
+		for (i = 0; i < size; i++)
+			(void) close(i);
+		i = open("/dev/console", 2);
+		(void) dup2(i, 1);
+		(void) dup2(i, 2);
+		i = open("/dev/tty", 2);
+		if (i >= 0) {
+			(void) ioctl(i, TIOCNOTTY, (char *)NULL);
+			(void) close(i);
+		}
+		openlog("up2youService", LOG_PID, LOG_DAEMON);
+#endif
+		sock = RPC_ANYSOCK;
+		(void) pmap_unset(UP2US_PROG, UP2US_V_1);
+	}
+
+	if ((_rpcfdtype == 0) || (_rpcfdtype == SOCK_DGRAM)) {
+		transp = svcudp_create(sock);
+		if (transp == NULL) {
+			_msgout("cannot create udp service.");
+			exit(1);
+		}
+		if (!_rpcpmstart)
+			proto = IPPROTO_UDP;
+		if (!svc_register(transp, UP2US_PROG, UP2US_V_1, up2us_prog_1, proto)) {
+			_msgout("unable to register (UP2US_PROG, UP2US_V_1, udp).");
+			exit(1);
+		}
+	}
+
+	if ((_rpcfdtype == 0) || (_rpcfdtype == SOCK_STREAM)) {
+		if (_rpcpmstart)
+			transp = svcfd_create(sock, 0, 0);
+		else
+			transp = svctcp_create(sock, 0, 0);
+		if (transp == NULL) {
+			_msgout("cannot create tcp service.");
+			exit(1);
+		}
+		if (!_rpcpmstart)
+			proto = IPPROTO_TCP;
+		if (!svc_register(transp, UP2US_PROG, UP2US_V_1, up2us_prog_1, proto)) {
+			_msgout("unable to register (UP2US_PROG, UP2US_V_1, tcp).");
+			exit(1);
+		}
+	}
+
+	if (transp == (SVCXPRT *)NULL) {
+		_msgout("could not create a handle");
 		exit(1);
 	}
-	if (!svc_register(transp, UP2US_PROG, UP2US_V_1, up2us_prog_1, IPPROTO_UDP)) {
-		fprintf (stderr, "%s", "unable to register (UP2US_PROG, UP2US_V_1, udp).");
-		exit(1);
+	if (_rpcpmstart) {
+		(void) signal(SIGALRM, (void(*)()) closedown);
+		(void) alarm(_RPCSVC_CLOSEDOWN);
 	}
-
-	transp = svctcp_create(RPC_ANYSOCK, 0, 0);
-	if (transp == NULL) {
-		fprintf (stderr, "%s", "cannot create tcp service.");
-		exit(1);
-	}
-	if (!svc_register(transp, UP2US_PROG, UP2US_V_1, up2us_prog_1, IPPROTO_TCP)) {
-		fprintf (stderr, "%s", "unable to register (UP2US_PROG, UP2US_V_1, tcp).");
-		exit(1);
-	}
-
-	svc_run ();
-	fprintf (stderr, "%s", "svc_run returned");
-	exit (1);
+	svc_run();
+	_msgout("svc_run returned");
+	exit(1);
 	/* NOTREACHED */
 }
