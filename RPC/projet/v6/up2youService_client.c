@@ -6,6 +6,11 @@
 
 #include "up2youService.h"
 
+void afficher_client(const client * c){
+	printf("Client %d : \n", c->id);
+	printf("\tid : %d\n", c->id);
+	return;
+}
 
 void
 up2us_prog_1(char *host)
@@ -13,7 +18,9 @@ up2us_prog_1(char *host)
 	CLIENT *clnt;
 	void  *result_1;
 	char *init_1_arg;
-	client  *result_2;
+	liste_clients  *result_2;
+	char *get_clients_1_arg;
+	client  *result_3;
 	int  get_client_1_arg;
 
 #ifndef	DEBUG
@@ -23,19 +30,21 @@ up2us_prog_1(char *host)
 		exit (1);
 	}
 #endif	/* DEBUG */
-	printf("1");
+
 	result_1 = init_1((void*)&init_1_arg, clnt);
 	if (result_1 == (void *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	printf("2");
-	get_client_1_arg = 1;
-	result_2 = get_client_1(&get_client_1_arg, clnt);
-	if (result_2 == (client *) NULL) {
+	result_2 = get_clients_1((void*)&get_clients_1_arg, clnt);
+	if (result_2 == (liste_clients *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	printf("3");
-	printf("%d\n", result_2->id);
+	get_client_1_arg = 0;
+	result_3 = get_client_1(&get_client_1_arg, clnt);
+	if (result_3 == (client *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	printf("%d\n", result_3->id);
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
