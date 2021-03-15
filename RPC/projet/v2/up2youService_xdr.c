@@ -37,12 +37,12 @@ xdr_adresse (XDR *xdrs, adresse *objp)
 	int i;
 	 if (!xdr_int (xdrs, &objp->numero))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->voie, sizeVoieAdresse,
+	 if (!xdr_vector (xdrs, (char *)objp->voie, 100,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->cp))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->ville, sizeVilleAdresse,
+	 if (!xdr_vector (xdrs, (char *)objp->ville, 45,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	return TRUE;
@@ -70,10 +70,10 @@ xdr_client (XDR *xdrs, client *objp)
 	int i;
 	 if (!xdr_int (xdrs, &objp->id))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->nom, sizeNom,
+	 if (!xdr_vector (xdrs, (char *)objp->nom, 45,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->prenom, sizeNom,
+	 if (!xdr_vector (xdrs, (char *)objp->prenom, 45,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	 if (!xdr_donnee_bc (xdrs, &objp->donnee_bc))
@@ -84,7 +84,7 @@ xdr_client (XDR *xdrs, client *objp)
 		 return FALSE;
 	 if (!xdr_boolean (xdrs, &objp->fact_tel))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->list_adresse, nbAdresseClient,
+	 if (!xdr_vector (xdrs, (char *)objp->list_adresse, 3,
 		sizeof (adresse), (xdrproc_t) xdr_adresse))
 		 return FALSE;
 	return TRUE;
@@ -98,7 +98,7 @@ xdr_mobile (XDR *xdrs, mobile *objp)
 	int i;
 	 if (!xdr_int (xdrs, &objp->id))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->nom, sizeNom,
+	 if (!xdr_vector (xdrs, (char *)objp->nom, 45,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	 if (!xdr_float (xdrs, &objp->prix_location))
@@ -216,7 +216,7 @@ xdr_assurance (XDR *xdrs, assurance *objp)
 		 return FALSE;
 	 if (!xdr_float (xdrs, &objp->prix))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->description, sizeDescriptionAssurance,
+	 if (!xdr_vector (xdrs, (char *)objp->description, 100,
 		sizeof (char), (xdrproc_t) xdr_char))
 		 return FALSE;
 	return TRUE;
@@ -310,7 +310,7 @@ xdr_liste_clients (XDR *xdrs, liste_clients *objp)
 	register int32_t *buf;
 
 	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxClients,
+	 if (!xdr_vector (xdrs, (char *)objp->liste, 10,
 		sizeof (client), (xdrproc_t) xdr_client))
 		 return FALSE;
 	return TRUE;
@@ -322,7 +322,7 @@ xdr_liste_mobiles (XDR *xdrs, liste_mobiles *objp)
 	register int32_t *buf;
 
 	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxMobiles,
+	 if (!xdr_vector (xdrs, (char *)objp->liste, 10,
 		sizeof (mobile), (xdrproc_t) xdr_mobile))
 		 return FALSE;
 	return TRUE;
@@ -334,7 +334,7 @@ xdr_liste_assurances (XDR *xdrs, liste_assurances *objp)
 	register int32_t *buf;
 
 	int i;
-	 if (!xdr_vector (xdrs, (char *)objp->liste, nbMaxAssurances,
+	 if (!xdr_vector (xdrs, (char *)objp->liste, 3,
 		sizeof (assurance), (xdrproc_t) xdr_assurance))
 		 return FALSE;
 	return TRUE;
@@ -345,7 +345,9 @@ xdr_liste_commandes (XDR *xdrs, liste_commandes *objp)
 {
 	register int32_t *buf;
 
-	if (!xdr_vector(xdrs, (char *)objp->liste, nbMaxCommandes, sizeof(commande), (xdrproc_t)xdr_commande))
-		return (FALSE);
-	return (TRUE);
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->liste, 25,
+		sizeof (commande), (xdrproc_t) xdr_commande))
+		 return FALSE;
+	return TRUE;
 }

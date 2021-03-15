@@ -15,7 +15,7 @@ struct adresse {
 
 struct donnee_bc {
 	int numero;
-	struct date date_exp;
+	date date_exp;
 	int crypto;
 };
 
@@ -27,7 +27,7 @@ struct client {
 	boolean rib; 
 	boolean pi; 
 	boolean fact_tel;
-	struct adresse list_adresse[3];
+	adresse list_adresse[3];
 };
 
 struct liste_clients{

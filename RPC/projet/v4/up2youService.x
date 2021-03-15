@@ -15,7 +15,7 @@ struct adresse {
 
 struct donnee_bc {
 	int numero;
-	struct date date_exp;
+	date date_exp;
 	int crypto;
 };
 
@@ -27,18 +27,12 @@ struct client {
 	boolean rib; 
 	boolean pi; 
 	boolean fact_tel;
-	struct adresse list_adresse[3];
-};
-
-struct liste_clients{
-	client liste[10];
-	int nbClients;
+	adresse list_adresse[3];
 };
 
 program UP2US_PROG {
 	version UP2US_V_1 {
 		void INIT() = 1;
-		liste_clients GET_CLIENTS() = 2;
-		client GET_CLIENT(int) = 3;
+		client GET_CLIENT(int) = 2;
 	} = 1;
 } = 0x23456789;

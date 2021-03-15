@@ -6,13 +6,14 @@
 
 #include "up2youService.h"
 
-client g_liste_clients[nbMaxClients];
+int g_nb_clients = 0;
+client g_liste_clients[10];
 
 void *
 init_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static char * result;
-	printf("1");
+
 	g_liste_clients[0].id = 0;
 	strcpy("Nadira", g_liste_clients[0].prenom);
 	strcpy("Nadira", g_liste_clients[0].nom);
@@ -28,18 +29,19 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	strcpy("Rue du général", g_liste_clients[0].list_adresse[0].voie);
 	g_liste_clients[0].list_adresse[0].cp = 29200;
 	strcpy("Brest", g_liste_clients[0].list_adresse[0].ville);
-	printf("1");
+	g_nb_clients++;
 	return (void *) &result;
 }
 
 liste_clients *
 get_clients_1_svc(void *argp, struct svc_req *rqstp)
 {
-	static liste_clients  result;
-	for(int i = 0; i<nbMaxClients; i++){
+	static liste_clients result;
+	int i = 0;
+	for(i; i<g_nb_clients; i++) {
 		result.liste[i] = g_liste_clients[i];
 	}
-	
+	result.nbClients = i;
 	return &result;
 }
 

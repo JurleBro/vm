@@ -34,9 +34,9 @@ typedef struct date date;
 
 struct adresse {
 	int numero;
-	char voie[sizeVoieAdresse];
+	char voie[100];
 	int cp;
-	char ville[sizeVilleAdresse];
+	char ville[45];
 };
 typedef struct adresse adresse;
 
@@ -49,19 +49,19 @@ typedef struct donnee_bc donnee_bc;
 
 struct client {
 	int id;
-	char nom[sizeNom];
-	char prenom[sizeNom];
+	char nom[45];
+	char prenom[45];
 	struct donnee_bc donnee_bc;
 	boolean rib;
 	boolean pi;
 	boolean fact_tel;
-	struct adresse list_adresse[nbAdresseClient];
+	struct adresse list_adresse[3];
 };
 typedef struct client client;
 
 struct mobile {
 	int id;
-	char nom[sizeNom];
+	char nom[45];
 	float prix_location;
 	float prix_achat;
 };
@@ -113,7 +113,7 @@ typedef struct params_mobile params_mobile;
 struct assurance {
 	int id;
 	float prix;
-	char description[sizeDescriptionAssurance];
+	char description[100];
 };
 typedef struct assurance assurance;
 
@@ -159,22 +159,22 @@ struct params_set_dl {
 typedef struct params_set_dl params_set_dl;
 
 struct liste_clients {
-	struct client liste[nbMaxClients];
+	struct client liste[10];
 };
 typedef struct liste_clients liste_clients;
 
 struct liste_mobiles {
-	struct mobile liste[nbMaxMobiles];
+	struct mobile liste[10];
 };
 typedef struct liste_mobiles liste_mobiles;
 
 struct liste_assurances {
-	struct assurance liste[nbMaxAssurances];
+	struct assurance liste[3];
 };
 typedef struct liste_assurances liste_assurances;
 
 struct liste_commandes {
-	struct commande liste[nbMaxCommandes];
+	struct commande liste[25];
 };
 typedef struct liste_commandes liste_commandes;
 
