@@ -8,8 +8,24 @@
 
 void afficher_client(const client * c){
 	printf("Client %d : \n", c->id);
-	printf("\tid : %d\n", c->id);
-    printf("\tprenom : %s\n", c->prenom);
+	printf("\tId : %d\n", c->id);
+    printf("\tNom : %s\n", c->nom);
+    printf("\tPrenom : %s\n", c->prenom);
+    
+printf("\tDonnees bancaires :\n");
+    printf("\t\tNumero : %d\n", c->donnee_bc_client.numero);
+    printf("\t\tDate : %d/%d/%d\n", c->donnee_bc_client.date_exp.jour, c->donnee_bc_client.date_exp.mois, c->donnee_bc_client.date_exp.annee);
+    printf("\t\tCrypto : %d\n", c->donnee_bc_client.crypto);
+    
+    printf("\tRib : %s\n", c->rib ? "Valide" : "Non valide");
+    printf("\tPi : %s\n", c->pi ? "Valide" : "Non valide");
+    printf("\tFact_tel : %s\n", c->fact_tel ? "Valide" : "Non valide");
+    
+    printf("\tListe adresses :\n");
+    for (int i = 0; i<1; i ++) {
+        printf("\t\tAdresse %d : \n", i);
+        printf("\t\t\t%d %s \n\t\t\t%d %s\n", c->list_adresse[i].numero, c->list_adresse[i].voie, c->list_adresse[i].cp, c->list_adresse[i].ville);
+    }
 	return;
 }
 
