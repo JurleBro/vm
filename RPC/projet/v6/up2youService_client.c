@@ -22,7 +22,7 @@ printf("\tDonnees bancaires :\n");
     printf("\tFact_tel : %s\n", c->fact_tel ? "Valide" : "Non valide");
     
     printf("\tListe adresses :\n");
-    for (int i = 0; i<1; i ++) {
+    for (int i = 0; i<3; i ++) {
         printf("\t\tAdresse %d : \n", i);
         printf("\t\t\t%d %s \n\t\t\t%d %s\n", c->list_adresse[i].numero, c->list_adresse[i].voie, c->list_adresse[i].cp, c->list_adresse[i].ville);
     }
