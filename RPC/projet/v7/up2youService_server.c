@@ -89,6 +89,10 @@ get_clients_1_svc(void *argp, struct svc_req *rqstp)
 client *
 get_client_1_svc(int *argp, struct svc_req *rqstp)
 {
+	if(*argp==NULL){
+		return NULL;
+	}
+
 	static client  result;
 	for(int i = 0; i<g_nb_clients; i++){
 		if(g_liste_clients[i].id == *argp){
@@ -103,6 +107,10 @@ get_client_1_svc(int *argp, struct svc_req *rqstp)
 int *
 creer_commande_1_svc(int *argp, struct svc_req *rqstp)
 {
+	if(*argp==NULL){
+		return NULL;
+	}
+
 	static int  result;
 
 	if(g_nb_commandes>=NB_MAX_COMMANDES){
@@ -134,6 +142,10 @@ get_mobiles_1_svc(void *argp, struct svc_req *rqstp)
 mobile *
 get_mobile_1_svc(int *argp, struct svc_req *rqstp)
 {
+	if(*argp==NULL){
+		return NULL;
+	}
+
 	static mobile  result;
 
 	for(int i = 0; i < g_nb_mobiles; i++){
@@ -146,10 +158,29 @@ get_mobile_1_svc(int *argp, struct svc_req *rqstp)
 	return &result;
 }
 
+boolean mobile_exist(int id){
+	for(int i = 0; i<g_nb_mobiles; i++){
+		if(g_liste_mobiles[i].id==id){
+			return 1;
+		}
+	}
+	return 0;
+}
+
 boolean *
 set_mobile_1_svc(params_set_mobile *argp, struct svc_req *rqstp)
 {
 	static boolean  result = 0;
+
+	if(argp->id_commande==NULL
+		|| argp->param_mobile.connectivite==NULL
+		|| argp->param_mobile.couleur==NULL
+		|| argp->param_mobile.id_mobile==NULL
+		|| !mobile_exist(argp->param_mobile.id_mobile)
+		|| argp->param_mobile.memoire==NULL
+		|| argp->param_mobile.type==NULL){
+			return &result;
+	}
 
 	for(int i = 0; i < g_nb_commandes; i++){
 		if(g_liste_commandes[i].id==argp->id_commande){

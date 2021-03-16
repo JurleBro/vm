@@ -115,7 +115,7 @@ up2us_prog_1(char *host)
 	if (result_4 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	printf("Id commande créé : %d\n", *result_4);
+	printf("%s\n", (*result_4)==-1 ? "Il n'y a plus de place" : "Création réussi");
 
 	result_5 = get_mobiles_1((void*)&get_mobiles_1_arg, clnt);
 	if (result_5 == (liste_mobiles *) NULL) {
@@ -134,11 +134,19 @@ up2us_prog_1(char *host)
 	}
 	afficher_mobile(result_6);
 
-	/*
+	set_mobile_1_arg.id_commande = *result_4;
+	set_mobile_1_arg.param_mobile.connectivite = G5;
+	set_mobile_1_arg.param_mobile.couleur = VERT;
+	set_mobile_1_arg.param_mobile.id_mobile = 0;
+	set_mobile_1_arg.param_mobile.memoire = GO512;
+	set_mobile_1_arg.param_mobile.type = LOCATION;
+
 	result_7 = set_mobile_1(&set_mobile_1_arg, clnt);
 	if (result_7 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
-	}*/
+	}
+	printf("%s\n",*result_7 ? "Paramètre mobile enregistré" : "L'enregitrement des paramètre n'a pas pu avoir lieu");
+
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
