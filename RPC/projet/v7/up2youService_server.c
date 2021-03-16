@@ -56,18 +56,18 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	
 	g_liste_mobiles[0].id=0;
 	strcpy(g_liste_mobiles[0].nom, "Sumsong");
-	g_liste_mobiles[0].prix_location = 49;
-	g_liste_mobiles[0].prix_achat = 799;
+	g_liste_mobiles[0].prix_location = 49.99;
+	g_liste_mobiles[0].prix_achat = 799.99;
 	
 	g_liste_mobiles[1].id=1;
 	strcpy(g_liste_mobiles[1].nom, "Ifon");
-	g_liste_mobiles[1].prix_location = 69;
-	g_liste_mobiles[1].prix_achat = 1299;
+	g_liste_mobiles[1].prix_location = 69.99;
+	g_liste_mobiles[1].prix_achat = 1299.99;
 	
 	g_liste_mobiles[2].id=2;
 	strcpy(g_liste_mobiles[2].nom, "Noucia");
-	g_liste_mobiles[2].prix_location = 19;
-	g_liste_mobiles[2].prix_achat = 120;
+	g_liste_mobiles[2].prix_location = 19.99;
+	g_liste_mobiles[2].prix_achat = 120.0;
 	
 	g_nb_mobiles = 3;
 

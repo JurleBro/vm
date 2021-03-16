@@ -18,7 +18,7 @@ void afficher_client(const client * c){
     
 	printf("\tDonnees bancaires :\n");
     printf("\t\tNumero : %d\n", c->donnee_bc_client.numero);
-    printf("\t\tDate : %d/%d/%d\n", c->donnee_bc_client.date_exp.jour, c->donnee_bc_client.date_exp.mois, c->donnee_bc_client.date_exp.annee);
+    printf("\t\tDate : %02d/%02d/%02d\n", c->donnee_bc_client.date_exp.jour, c->donnee_bc_client.date_exp.mois, c->donnee_bc_client.date_exp.annee);
     printf("\t\tCrypto : %d\n", c->donnee_bc_client.crypto);
     
     printf("\tRib : %s\n", c->rib ? "Valide" : "Non valide");
@@ -27,6 +27,9 @@ void afficher_client(const client * c){
     
     printf("\tListe adresses :\n");
     for (int i = 0; i<3; i ++) {
+    	if(c->list_adresse[i].numero==0){
+    		break;
+    	}
         printf("\t\tAdresse %d : \n", i);
         printf("\t\t\t%d %s \n\t\t\t%d %s\n", c->list_adresse[i].numero, c->list_adresse[i].voie, c->list_adresse[i].cp, c->list_adresse[i].ville);
     }
@@ -35,7 +38,7 @@ void afficher_client(const client * c){
 
 void afficher_enum(const char t_enum[10][10]){
 	for(int i = 0; i < 10; i++){
-		if(t_enum[i]==NULL){
+		if(strcmp(t_enum[i],"")==0){
 			break;
 		}
 		printf("%s, ", t_enum[i]);
@@ -45,8 +48,8 @@ void afficher_enum(const char t_enum[10][10]){
 void afficher_mobile(const mobile * m){
 	printf("\tId : %d\n", m->id);
 	printf("\tNom : %s\n", m->nom);
-	printf("\tPrix location : %d\n", m->prix_location);
-	printf("\tPrix achat : %d\n", m->prix_achat);
+	printf("\tPrix location : %.2f\n", m->prix_location);
+	printf("\tPrix achat : %.2f\n", m->prix_achat);
 	printf("\tType : ");
 	afficher_enum(c_enum_type);
 	printf("\tCouleur : ");
