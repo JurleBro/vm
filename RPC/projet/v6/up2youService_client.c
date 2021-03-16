@@ -9,6 +9,7 @@
 void afficher_client(const client * c){
 	printf("Client %d : \n", c->id);
 	printf("\tid : %d\n", c->id);
+    printf("\tprenom : %s\n", c->prenom);
 	return;
 }
 
@@ -44,7 +45,7 @@ up2us_prog_1(char *host)
 	if (result_3 == (client *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	printf("%d\n", result_3->id);
+	afficher_client(result_3);
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
