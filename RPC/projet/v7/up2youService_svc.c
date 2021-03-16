@@ -21,6 +21,9 @@ up2us_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
 		int get_client_1_arg;
+		int creer_commande_1_arg;
+		int get_mobile_1_arg;
+		params_set_mobile set_mobile_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -47,6 +50,30 @@ up2us_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_client;
 		local = (char *(*)(char *, struct svc_req *)) get_client_1_svc;
+		break;
+
+	case CREER_COMMANDE:
+		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) creer_commande_1_svc;
+		break;
+
+	case GET_MOBILES:
+		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_liste_mobiles;
+		local = (char *(*)(char *, struct svc_req *)) get_mobiles_1_svc;
+		break;
+
+	case GET_MOBILE:
+		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_result = (xdrproc_t) xdr_mobile;
+		local = (char *(*)(char *, struct svc_req *)) get_mobile_1_svc;
+		break;
+
+	case SET_MOBILE:
+		_xdr_argument = (xdrproc_t) xdr_params_set_mobile;
+		_xdr_result = (xdrproc_t) xdr_boolean;
+		local = (char *(*)(char *, struct svc_req *)) set_mobile_1_svc;
 		break;
 
 	default:
