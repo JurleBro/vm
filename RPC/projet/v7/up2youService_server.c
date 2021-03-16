@@ -23,7 +23,7 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 
 	g_liste_clients[0].id = 0;
 	strcpy(g_liste_clients[0].prenom, "Nadira");
-	strcpy(g_liste_clients[0].nom, "Dera");
+	strcpy(g_liste_clients[0].nom, "DERA");
 	g_liste_clients[0].donnee_bc_client.numero = 121575219;
 	g_liste_clients[0].donnee_bc_client.crypto = 100;
 	g_liste_clients[0].donnee_bc_client.date_exp.jour = 1;
@@ -39,7 +39,7 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	
 	g_liste_clients[1].id = 1;
 	strcpy(g_liste_clients[1].prenom, "Jules");
-	strcpy(g_liste_clients[1].nom, "Frère");
+	strcpy(g_liste_clients[1].nom, "FRÉRE");
 	g_liste_clients[1].donnee_bc_client.numero = 121575219;
 	g_liste_clients[1].donnee_bc_client.crypto = 100;
 	g_liste_clients[1].donnee_bc_client.date_exp.jour = 1;
@@ -49,10 +49,10 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	g_liste_clients[1].pi = 1;
 	g_liste_clients[1].fact_tel = 1;
 	g_liste_clients[1].list_adresse[0].numero = 1;
-	strcpy(g_liste_clients[0].list_adresse[0].voie, "Rue");
-	g_liste_clients[0].list_adresse[0].cp = 29200;
-	strcpy(g_liste_clients[0].list_adresse[0].ville, "Brest");
-	g_nb_clients=1;
+	strcpy(g_liste_clients[1].list_adresse[0].voie, "Rue");
+	g_liste_clients[1].list_adresse[0].cp = 29200;
+	strcpy(g_liste_clients[1].list_adresse[0].ville, "Brest");
+	g_nb_clients=2;
 	
 	g_liste_mobiles[0].id=0;
 	strcpy(g_liste_mobiles[0].nom, "Sumsong");
@@ -122,8 +122,8 @@ liste_mobiles *
 get_mobiles_1_svc(void *argp, struct svc_req *rqstp)
 {
 	static liste_mobiles  result;
-
-	for(int i = 0; i < g_nb_mobiles; i++){
+	int i = 0;
+	for(i = 0; i < g_nb_mobiles; i++){
 		result.liste[i] = g_liste_mobiles[i];
 	}
 	result.nb_mobiles = i;
@@ -151,9 +151,9 @@ set_mobile_1_svc(params_set_mobile *argp, struct svc_req *rqstp)
 {
 	static boolean  result = 0;
 
-	for(int i = 0; i < g_nb_mobiles; i++){
-		if(g_liste_mobiles[i].id==argp->id_commande){
-			g_liste_mobiles[i].mobile = argp->param_mobile;
+	for(int i = 0; i < g_nb_commandes; i++){
+		if(g_liste_commandes[i].id==argp->id_commande){
+			g_liste_commandes[i].mobile = argp->param_mobile;
 			result = 1;
 			break;
 		}

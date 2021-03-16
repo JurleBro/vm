@@ -6,13 +6,17 @@
 
 #include "up2youService.h"
 
+const char c_enum_type[10][10] = {"Achat", "Location"};
+const char c_enum_couleur[10][10] = {"Rouge", "Vert", "Bleu"};
+const char c_enum_connect[10][10] = {"4G", "5G"};
+const char c_enum_memoire[10][10] = {"128go", "256go", "512go"};
+
 void afficher_client(const client * c){
-	printf("Client %d : \n", c->id);
 	printf("\tId : %d\n", c->id);
     printf("\tNom : %s\n", c->nom);
     printf("\tPrenom : %s\n", c->prenom);
     
-printf("\tDonnees bancaires :\n");
+	printf("\tDonnees bancaires :\n");
     printf("\t\tNumero : %d\n", c->donnee_bc_client.numero);
     printf("\t\tDate : %d/%d/%d\n", c->donnee_bc_client.date_exp.jour, c->donnee_bc_client.date_exp.mois, c->donnee_bc_client.date_exp.annee);
     printf("\t\tCrypto : %d\n", c->donnee_bc_client.crypto);
@@ -26,6 +30,31 @@ printf("\tDonnees bancaires :\n");
         printf("\t\tAdresse %d : \n", i);
         printf("\t\t\t%d %s \n\t\t\t%d %s\n", c->list_adresse[i].numero, c->list_adresse[i].voie, c->list_adresse[i].cp, c->list_adresse[i].ville);
     }
+	return;
+}
+
+void afficher_enum(const char t_enum[10][10]){
+	for(int i = 0; i < 10; i++){
+		if(t_enum[i]==NULL){
+			break;
+		}
+		printf("%s, ", t_enum[i]);
+	}
+	printf("\n");
+}
+void afficher_mobile(const mobile * m){
+	printf("\tId : %d\n", m->id);
+	printf("\tNom : %s\n", m->nom);
+	printf("\tPrix location : %d\n", m->prix_location);
+	printf("\tPrix achat : %d\n", m->prix_achat);
+	printf("\tType : ");
+	afficher_enum(c_enum_type);
+	printf("\tCouleur : ");
+	afficher_enum(c_enum_couleur);
+	printf("\tConnectivité : ");
+	afficher_enum(c_enum_connect);
+	printf("\tMémoire : ");
+	afficher_enum(c_enum_memoire);
 	return;
 }
 
@@ -56,39 +85,60 @@ up2us_prog_1(char *host)
 	}
 #endif	/* DEBUG */
 
-	esult_1 = init_1((void*)&init_1_arg, clnt);
+	result_1 = init_1((void*)&init_1_arg, clnt);
 	if (result_1 == (void *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("Serveur initialisé\n");
 	
 	result_2 = get_clients_1((void*)&get_clients_1_arg, clnt);
 	if (result_2 == (liste_clients *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("Liste clients :\n");
+	for(int i = 0; i<result_2->nb_clients; i++){
+		printf("\t%d : %s %s\n", result_2->liste[i].id, result_2->liste[i].nom, result_2->liste[i].prenom);
+	}
 	
 	get_client_1_arg = 0;
+	printf("Afficher client : 0\n");
+
 	result_3 = get_client_1(&get_client_1_arg, clnt);
 	if (result_3 == (client *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
 	afficher_client(result_3);
 	
+	creer_commande_1_arg = 0;
+	printf("Crèation d'une commande pour client 0\n");
 	result_4 = creer_commande_1(&creer_commande_1_arg, clnt);
 	if (result_4 == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("Id commande créé : %d\n", *result_4);
+
 	result_5 = get_mobiles_1((void*)&get_mobiles_1_arg, clnt);
 	if (result_5 == (liste_mobiles *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("Liste mobiles :\n");
+	for(int j = 0; j < result_5->nb_mobiles; j++){
+		printf("\t%d : %s\n", result_5->liste[j].id, result_5->liste[j].nom);
+	}
+
+	printf("Afficher mobile : 0\n");
+	get_mobile_1_arg = 0;
 	result_6 = get_mobile_1(&get_mobile_1_arg, clnt);
 	if (result_6 == (mobile *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	afficher_mobile(result_6);
+
+	/*
 	result_7 = set_mobile_1(&set_mobile_1_arg, clnt);
 	if (result_7 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
-	}
+	}*/
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
