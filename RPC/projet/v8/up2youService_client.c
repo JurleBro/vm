@@ -62,6 +62,27 @@ void afficher_mobile(const mobile * m){
 	return;
 }
 
+void afficher_assurance(const assurance * a){
+	printf("\tId : %d\n", a->id);
+	printf("\tDescription : %s\n", a->description);
+	printf("\tPrix : %d\n", a->prix);
+}
+
+void afficher_commande(const commande * c){
+	printf("\tId : %d\n", c->id);
+	printf("\tId client : %d\n", c->id_client);
+	printf("\tParamamètre mobile :\n");
+	printf("\t\tId : %d \n", c->mobile.id_mobile);
+	printf("\t\tCouleur : %s\n", c_enum_couleur[c->mobile.couleur]);
+	printf("\t\t%s\n", c_enum_type[c->mobile.type]);
+	printf("\t\tCommectivité : %s\n", c_enum_connect[c->mobile.connectivite]);
+	printf("\t\tMémoire : %s\n", c_enum_memoire[c->mobile.memoire]);
+	printf("\tId assurance : %d\n", c->id_assurance);
+	printf("\tDate de livraison : %02d/%02d/%02d\n", c->date_livraison.jour, c->date_livraison.mois, c->date_livraison.annee);
+	printf("\tValide : %s\n", c->valide ? "Valide" : "Non valide");
+
+}
+
 void
 up2us_prog_1(char *host)
 {
@@ -192,7 +213,7 @@ up2us_prog_1(char *host)
 		clnt_perror (clnt, "call failed");
 	}
 	printf("Assurance id : 0\n");
-	afficher_assurance(*result_9);
+	afficher_assurance(result_9);
 
 	printf("-----------------------------------------------\n");
 	set_assurance_1_arg.id_commande = 0;
