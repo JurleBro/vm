@@ -248,7 +248,7 @@ xdr_commande (XDR *xdrs, commande *objp)
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->id_assurance))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->id_adresse_client))
+	 if (!xdr_int (xdrs, &objp->index_adresse_client))
 		 return FALSE;
 	 if (!xdr_boolean (xdrs, &objp->valide))
 		 return FALSE;

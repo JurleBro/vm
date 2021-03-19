@@ -252,7 +252,7 @@ set_mobile_1_svc(params_set_mobile *argp, struct svc_req *rqstp)
 	g_liste_commandes[index_commande].mobile = argp->param_mobile;
 	result = 1;
 	
-	printf("Fin : set_mobile({%d, param_mobile})\n", argp->id_commande);
+	printf("Execution : set_mobile({%d, param_mobile})\n", argp->id_commande);
 
 	return &result;
 }
@@ -261,7 +261,6 @@ set_mobile_1_svc(params_set_mobile *argp, struct svc_req *rqstp)
 liste_assurances *
 get_assurances_1_svc(void *argp, struct svc_req *rqstp)
 {
-	printf("Execution : get_assurances(void)\n");
 	static liste_assurances  result;
 
 	for(int i = 0; i < g_nb_assurances; i++){
@@ -269,18 +268,13 @@ get_assurances_1_svc(void *argp, struct svc_req *rqstp)
 	}
 
 	result.nb_assurances = g_nb_assurances;
-	
-	printf("Fin : get_assurances(void)\n");
 
 	return &result;
 }
 
-//Renvoie une certaine assurance
-//Retourne l'assurance ou -1
 assurance *
 get_assurance_1_svc(int *argp, struct svc_req *rqstp)
 {
-	printf("Execution : get_assurance(%d)\n",*argp);
 	static assurance  result;
 
 	for(int i = 0; i < g_nb_assurances; i++){
@@ -289,53 +283,33 @@ get_assurance_1_svc(int *argp, struct svc_req *rqstp)
 			break;
 		}
 	}
-	
-	printf("Fin : get_assurance(%d)\n",*argp);
+
 	return &result;
 }
 
-//Vérifie qu'une certaine assurance existe
-//retourne l'index de l'assurance ou -1
-int assurance_exist(int id){
-	for(int i = 0; i<g_nb_assurances; i++){
-		if(g_liste_assurances[i].id==id){
-			return i;
-		}
-	}
-	return -1;
-}
-
-//Modifie l'assurance pour une certaine commande
-//Retourne 1 ou 0
 boolean *
 set_assurance_1_svc(params_set_assurance *argp, struct svc_req *rqstp)
 {
-	printf("Execution : set_assurance({%d, %d})\n", argp->id_commande, argp->id_assurances);
-	
 	static boolean  result;
 
 	int index_commande = commande_exist(argp->id_commande);
 
-	if(index_commande==-1 || assurance_exist(argp->id_assurances)==-1){
+	if(index_commande==-1 || assurances_exist(argp->id_assurances)){
 		result = 0;
 		return &result;
 	}
 
 	g_liste_commandes[index_commande].id_assurance = argp->id_assurances;
 	result = 1;
-	
-	printf("Fin : set_assurance({%d, %d})\n", argp->id_commande, argp->id_assurances);
-	
+
 	return &result;
 }
 
 
-//Modifie l'adresse de livraison d'une certaine commande
-//Retourne 1 ou 0
+
 boolean *
 set_adresse_livraison_1_svc(params_set_adresse *argp, struct svc_req *rqstp)
 {
-	printf("Execution : set_adresse_livraison(...)\n");
 	static boolean  result;
 
 	int index_commande = commande_exist(argp->id_commande);
@@ -355,20 +329,28 @@ set_adresse_livraison_1_svc(params_set_adresse *argp, struct svc_req *rqstp)
 		return &result;
 	}
 
-	g_liste_commandes[index_commande].index_adresse_client = argp->index_adresse_client;
+	g_liste_commandes[index_commande].index_adresse_client = argp->index_adress_client;
 	result = 1;
-	
-	printf("Fin : set_adresse_livraison(...)\n");
 
 	return &result;
 }
 
-//Renvoie une certaine commande
-//Retourne une commande ou NULL
+liste_commandes *
+get_commandes_1_svc(void *argp, struct svc_req *rqstp)
+{
+	static liste_commandes  result;
+
+	for(int i = 0; i < g_nb_commandes; i++){
+		result.liste[i] = g_liste_commandes[i];
+	}
+	result.nb_commandes = g_nb_commandes;
+
+	return &result;
+}
+
 commande *
 get_commande_1_svc(int *argp, struct svc_req *rqstp)
 {
-	printf("Execution : get_commande(%d)\n", *argp);
 	static commande  result;
 
 	for(int i = 0; i < g_nb_commandes; i++){
@@ -377,18 +359,13 @@ get_commande_1_svc(int *argp, struct svc_req *rqstp)
 			break;
 		}
 	}
-	
-	printf("Fin : get_commande(%d)\n", *argp);
 
 	return &result;
 }
 
-//Valide une certaine commande
-//retourne 1 ou 0
 boolean *
 valide_commande_1_svc(int *argp, struct svc_req *rqstp)
 {
-	printf("Execution : valide_commande(%d)\n", *argp);
 	static boolean  result;
 
 	int index_commande = commande_exist(*argp);
@@ -400,18 +377,13 @@ valide_commande_1_svc(int *argp, struct svc_req *rqstp)
 
 	g_liste_commandes[index_commande].valide = 1;
 	result = 1;
-	
-	printf("Fin : valide_commande(%d)\n", *argp);
 
 	return &result;
 }
 
-//Modifie la date de livraison d'une certaine commande
-//Retourne 1 ou 0
 boolean *
 set_date_livraison_1_svc(params_set_dl *argp, struct svc_req *rqstp)
 {
-	printf("Execution : set_date_livraison(...)\n");
 	static boolean  result;
 
 	int index_commande = commande_exist(argp->id_commande);
@@ -421,8 +393,6 @@ set_date_livraison_1_svc(params_set_dl *argp, struct svc_req *rqstp)
 	}
 
 	g_liste_commandes[index_commande].date_livraison = argp->dl;
-	
-	printf("Fin : set_date_livraison(...)\n");
 
 	return &result;
 }

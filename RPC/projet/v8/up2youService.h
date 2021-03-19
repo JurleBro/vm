@@ -119,7 +119,7 @@ struct commande {
 	int id_client;
 	struct params_mobile mobile;
 	int id_assurance;
-	int id_adresse_client;
+	int index_adresse_client;
 	boolean valide;
 	date date_livraison;
 };
@@ -210,18 +210,15 @@ extern  boolean * set_assurance_1_svc(params_set_assurance *, struct svc_req *);
 #define SET_ADRESSE_LIVRAISON 11
 extern  boolean * set_adresse_livraison_1(params_set_adresse *, CLIENT *);
 extern  boolean * set_adresse_livraison_1_svc(params_set_adresse *, struct svc_req *);
-#define GET_COMMANDES 12
-extern  liste_commandes * get_commandes_1(void *, CLIENT *);
-extern  liste_commandes * get_commandes_1_svc(void *, struct svc_req *);
-#define GET_COMMANDE 13
-extern  commande * get_commande_1(int *, CLIENT *);
-extern  commande * get_commande_1_svc(int *, struct svc_req *);
-#define VALIDE_COMMANDE 14
+#define VALIDE_COMMANDE 12
 extern  boolean * valide_commande_1(int *, CLIENT *);
 extern  boolean * valide_commande_1_svc(int *, struct svc_req *);
-#define SET_DATE_LIVRAISON 15
+#define SET_DATE_LIVRAISON 13
 extern  boolean * set_date_livraison_1(params_set_dl *, CLIENT *);
 extern  boolean * set_date_livraison_1_svc(params_set_dl *, struct svc_req *);
+#define GET_COMMANDE 14
+extern  commande * get_commande_1(int *, CLIENT *);
+extern  commande * get_commande_1_svc(int *, struct svc_req *);
 extern int up2us_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -258,18 +255,15 @@ extern  boolean * set_assurance_1_svc();
 #define SET_ADRESSE_LIVRAISON 11
 extern  boolean * set_adresse_livraison_1();
 extern  boolean * set_adresse_livraison_1_svc();
-#define GET_COMMANDES 12
-extern  liste_commandes * get_commandes_1();
-extern  liste_commandes * get_commandes_1_svc();
-#define GET_COMMANDE 13
-extern  commande * get_commande_1();
-extern  commande * get_commande_1_svc();
-#define VALIDE_COMMANDE 14
+#define VALIDE_COMMANDE 12
 extern  boolean * valide_commande_1();
 extern  boolean * valide_commande_1_svc();
-#define SET_DATE_LIVRAISON 15
+#define SET_DATE_LIVRAISON 13
 extern  boolean * set_date_livraison_1();
 extern  boolean * set_date_livraison_1_svc();
+#define GET_COMMANDE 14
+extern  commande * get_commande_1();
+extern  commande * get_commande_1_svc();
 extern int up2us_prog_1_freeresult ();
 #endif /* K&R C */
 

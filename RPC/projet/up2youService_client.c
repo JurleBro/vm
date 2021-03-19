@@ -65,7 +65,7 @@ void afficher_mobile(const mobile * m){
 void afficher_assurance(const assurance * a){
 	printf("\tId : %d\n", a->id);
 	printf("\tDescription : %s\n", a->description);
-	printf("\tPrix : %.2f\n", a->prix);
+	printf("\tPrix : %f\n", a->prix);
 }
 
 void afficher_commande(const commande * c){
@@ -113,8 +113,6 @@ up2us_prog_1(char *host)
 	int  valide_commande_1_arg;
 	boolean  *result_13;
 	params_set_dl  set_date_livraison_1_arg;
-	commande *result_14;
-	int get_commande_1_arg;
 
 #ifndef	DEBUG
 	clnt = clnt_create (host, UP2US_PROG, UP2US_V_1, "udp");
@@ -199,41 +197,33 @@ up2us_prog_1(char *host)
 	printf("%s\n",*result_7 ? "Paramètre mobile enregistré" : "L'enregitrement des paramètre n'a pas pu avoir lieu");
 	
 	printf("-----------------------------------------------\n");
-	
 	result_8 = get_assurances_1((void*)&get_assurances_1_arg, clnt);
 	if (result_8 == (liste_assurances *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	
 	printf("Liste des assurances : \n");
 	for(int j = 0; j<result_8->nb_assurances; j++){
-		printf("\t%d : %.2f\n",result_8->liste[j].id, result_8->liste[j].prix);
+		printf("\t%d : %f\n",result_8->liste[j].id, result_8->liste[j].prix);
 	}
 
 	printf("-----------------------------------------------\n");
-	
 	get_assurance_1_arg = 0;
 	result_9 = get_assurance_1(&get_assurance_1_arg, clnt);
 	if (result_9 == (assurance *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	
 	printf("Assurance id : 0\n");
 	afficher_assurance(result_9);
 
 	printf("-----------------------------------------------\n");
-	
 	set_assurance_1_arg.id_commande = 0;
 	set_assurance_1_arg.id_assurances = 0;
 	result_10 = set_assurance_1(&set_assurance_1_arg, clnt);
 	if (result_10 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	
 	printf("Assurance enregistré pour la commande 0\n");
-	
 	printf("-----------------------------------------------\n");
-	
 	set_adresse_livraison_1_arg.id_commande = 0;
 	set_adresse_livraison_1_arg.index_adresse_client = 0;
 	result_11 = set_adresse_livraison_1(&set_adresse_livraison_1_arg, clnt);
@@ -241,7 +231,6 @@ up2us_prog_1(char *host)
 		clnt_perror (clnt, "call failed");
 	}
 	printf("Adresse de livraison bien enregistré\n");
-	
 	printf("-----------------------------------------------\n");
 
 	valide_commande_1_arg = 0;
@@ -249,8 +238,7 @@ up2us_prog_1(char *host)
 	if (result_12 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	printf("Commande validé\n");
-	
+	printf("Commande validé");
 	printf("-----------------------------------------------\n");
 	
 	set_date_livraison_1_arg.id_commande = 0;
@@ -264,14 +252,6 @@ up2us_prog_1(char *host)
 	}
 	printf("Date de livraison bien enregistré\n");
 	
-	printf("-----------------------------------------------\n");	
-	
-	result_14 = get_commande_1(&get_commande_1_arg, clnt);
-	if (result_14 == (commande *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	printf("Résumé commande : 0\n");
-	afficher_commande(result_14);
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */

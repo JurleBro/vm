@@ -27,9 +27,9 @@ up2us_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		int get_assurance_1_arg;
 		params_set_assurance set_assurance_1_arg;
 		params_set_adresse set_adresse_livraison_1_arg;
-		int get_commande_1_arg;
 		int valide_commande_1_arg;
 		params_set_dl set_date_livraison_1_arg;
+		int get_commande_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -106,18 +106,6 @@ up2us_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		local = (char *(*)(char *, struct svc_req *)) set_adresse_livraison_1_svc;
 		break;
 
-	case GET_COMMANDES:
-		_xdr_argument = (xdrproc_t) xdr_void;
-		_xdr_result = (xdrproc_t) xdr_liste_commandes;
-		local = (char *(*)(char *, struct svc_req *)) get_commandes_1_svc;
-		break;
-
-	case GET_COMMANDE:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_commande;
-		local = (char *(*)(char *, struct svc_req *)) get_commande_1_svc;
-		break;
-
 	case VALIDE_COMMANDE:
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_boolean;
@@ -128,6 +116,12 @@ up2us_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_params_set_dl;
 		_xdr_result = (xdrproc_t) xdr_boolean;
 		local = (char *(*)(char *, struct svc_req *)) set_date_livraison_1_svc;
+		break;
+
+	case GET_COMMANDE:
+		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_result = (xdrproc_t) xdr_commande;
+		local = (char *(*)(char *, struct svc_req *)) get_commande_1_svc;
 		break;
 
 	default:

@@ -174,36 +174,6 @@ set_adresse_livraison_1(params_set_adresse *argp, CLIENT *clnt)
 	return (&clnt_res);
 }
 
-liste_commandes *
-get_commandes_1(void *argp, CLIENT *clnt)
-{
-	static liste_commandes clnt_res;
-
-	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	if (clnt_call (clnt, GET_COMMANDES,
-		(xdrproc_t) xdr_void, (caddr_t) argp,
-		(xdrproc_t) xdr_liste_commandes, (caddr_t) &clnt_res,
-		TIMEOUT) != RPC_SUCCESS) {
-		return (NULL);
-	}
-	return (&clnt_res);
-}
-
-commande *
-get_commande_1(int *argp, CLIENT *clnt)
-{
-	static commande clnt_res;
-
-	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	if (clnt_call (clnt, GET_COMMANDE,
-		(xdrproc_t) xdr_int, (caddr_t) argp,
-		(xdrproc_t) xdr_commande, (caddr_t) &clnt_res,
-		TIMEOUT) != RPC_SUCCESS) {
-		return (NULL);
-	}
-	return (&clnt_res);
-}
-
 boolean *
 valide_commande_1(int *argp, CLIENT *clnt)
 {
@@ -228,6 +198,21 @@ set_date_livraison_1(params_set_dl *argp, CLIENT *clnt)
 	if (clnt_call (clnt, SET_DATE_LIVRAISON,
 		(xdrproc_t) xdr_params_set_dl, (caddr_t) argp,
 		(xdrproc_t) xdr_boolean, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+commande *
+get_commande_1(int *argp, CLIENT *clnt)
+{
+	static commande clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, GET_COMMANDE,
+		(xdrproc_t) xdr_int, (caddr_t) argp,
+		(xdrproc_t) xdr_commande, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}
