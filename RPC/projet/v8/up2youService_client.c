@@ -27,12 +27,9 @@ void afficher_client(const client * c){
     printf("\tFact_tel : %s\n", c->fact_tel ? "Valide" : "Non valide");
     
     printf("\tListe adresses :\n");
-    for (int i = 0; i<3; i ++) {
-    	if(c->list_adresse[i].numero==0){
-    		break;
-    	}
+    for (int i = 0; i<c->list_adresses.nb_adresses; i ++) {
         printf("\t\tAdresse %d : \n", i);
-        printf("\t\t\t%d %s \n\t\t\t%d %s\n", c->list_adresse[i].numero, c->list_adresse[i].voie, c->list_adresse[i].cp, c->list_adresse[i].ville);
+        printf("\t\t\t%d %s \n\t\t\t%d %s\n", c->list_adresses.liste[i].numero, c->list_adresses.liste[i].voie, c->list_adresses.liste[i].cp, c->list_adresses.liste[i].ville);
     }
 	return;
 }
@@ -91,13 +88,9 @@ up2us_prog_1(char *host)
 	params_set_assurance  set_assurance_1_arg;
 	boolean  *result_11;
 	params_set_adresse  set_adresse_livraison_1_arg;
-	liste_commandes  *result_12;
-	char *get_commandes_1_arg;
-	commande  *result_13;
-	int  get_commande_1_arg;
-	boolean  *result_14;
+	boolean  *result_12;
 	int  valide_commande_1_arg;
-	boolean  *result_15;
+	boolean  *result_13;
 	params_set_dl  set_date_livraison_1_arg;
 
 #ifndef	DEBUG
@@ -187,34 +180,57 @@ up2us_prog_1(char *host)
 	if (result_8 == (liste_assurances *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("Liste des assurances : \n");
+	for(int j = 0; j<result_8->nb_assurances; j++){
+		printf("\t%d : %f\n",result_8->liste[j]);
+	}
+
+	printf("-----------------------------------------------\n");
+	get_assurance_1_arg = 0;
 	result_9 = get_assurance_1(&get_assurance_1_arg, clnt);
 	if (result_9 == (assurance *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("Assurance id : 0\n");
+	afficher_assurance(*result_9);
+
+	printf("-----------------------------------------------\n");
+	set_assurance_1_arg.id_commande = 0;
+	set_assurance_1_arg.id_assurances = 0;
 	result_10 = set_assurance_1(&set_assurance_1_arg, clnt);
 	if (result_10 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
+	printf("Assurance enregistré pour la commande 0\n");
+	printf("-----------------------------------------------\n");
+	set_adresse_livraison_1_arg.id_commande = 0;
+	set_adresse_livraison_1_arg.index_adresse_client = 0;
 	result_11 = set_adresse_livraison_1(&set_adresse_livraison_1_arg, clnt);
 	if (result_11 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_12 = get_commandes_1((void*)&get_commandes_1_arg, clnt);
-	if (result_12 == (liste_commandes *) NULL) {
+	printf("Adresse de livraison bien enregistré\n");
+	printf("-----------------------------------------------\n");
+
+	valide_commande_1_arg = 0;
+	result_12 = valide_commande_1(&valide_commande_1_arg, clnt);
+	if (result_12 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_13 = get_commande_1(&get_commande_1_arg, clnt);
-	if (result_13 == (commande *) NULL) {
+	printf("Commande validé");
+	printf("-----------------------------------------------\n");
+	
+	set_date_livraison_1_arg.id_commande = 0;
+	set_date_livraison_1_arg.dl.annee = 2021;
+	set_date_livraison_1_arg.dl.jour = 1;
+	set_date_livraison_1_arg.dl.mois = 4;
+
+	result_13 = set_date_livraison_1(&set_date_livraison_1_arg, clnt);
+	if (result_13 == (boolean *) NULL) {
 		clnt_perror (clnt, "call failed");
 	}
-	result_14 = valide_commande_1(&valide_commande_1_arg, clnt);
-	if (result_14 == (boolean *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_15 = set_date_livraison_1(&set_date_livraison_1_arg, clnt);
-	if (result_15 == (boolean *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
+	printf("Date de livraison bien enregistré\n");
+	
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */

@@ -70,7 +70,7 @@ struct commande {
 	int id_client;
 	struct params_mobile mobile;
 	int id_assurance;
-	int id_adresse_client;
+	int index_adresse_client;
 	boolean valide;
 	date date_livraison;
 };
@@ -128,9 +128,8 @@ program UP2US_PROG {
 		assurance GET_ASSURANCE(int) = 9;
 		boolean SET_ASSURANCE(params_set_assurance) = 10;
 		boolean SET_ADRESSE_LIVRAISON(params_set_adresse) = 11;
-		liste_commandes GET_COMMANDES() = 12;
-		commande GET_COMMANDE(int) = 13;
-		boolean VALIDE_COMMANDE(int) = 14;
-		boolean SET_DATE_LIVRAISON(params_set_dl) = 15;
+		boolean VALIDE_COMMANDE(int) = 12;
+		boolean SET_DATE_LIVRAISON(params_set_dl) = 13;
+		commande GET_COMMANDE(int) = 14;
 	} = 1;
 } = 0x23456789;

@@ -39,10 +39,11 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	g_liste_clients[0].rib = 1;
 	g_liste_clients[0].pi = 1;
 	g_liste_clients[0].fact_tel = 1;
-	g_liste_clients[0].list_adresse[0].numero = 1;
-	strcpy(g_liste_clients[0].list_adresse[0].voie, "Rue");
-	g_liste_clients[0].list_adresse[0].cp = 29200;
-	strcpy(g_liste_clients[0].list_adresse[0].ville, "Brest");
+	g_liste_clients[0].list_adresses.liste[0].numero = 1;
+	strcpy(g_liste_clients[0].list_adresses.liste[0].voie, "Rue");
+	g_liste_clients[0].list_adresses.liste[0].cp = 29200;
+	strcpy(g_liste_clients[0].list_adresses.liste[0].ville, "Brest");
+	g_liste_clients[0].list_adresses.nb_adresses = 1;
 	
 	g_liste_clients[1].id = 1;
 	strcpy(g_liste_clients[1].prenom, "Jules");
@@ -55,10 +56,10 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	g_liste_clients[1].rib = 1;
 	g_liste_clients[1].pi = 1;
 	g_liste_clients[1].fact_tel = 1;
-	g_liste_clients[1].list_adresse[0].numero = 1;
-	strcpy(g_liste_clients[1].list_adresse[0].voie, "Rue");
-	g_liste_clients[1].list_adresse[0].cp = 29200;
-	strcpy(g_liste_clients[1].list_adresse[0].ville, "Brest");
+	g_liste_clients[1].list_adresses.liste[0].numero = 1;
+	strcpy(g_liste_clients[1].list_adresses.liste[0].voie, "Rue");
+	g_liste_clients[1].list_adresses.liste[0].cp = 29200;
+	strcpy(g_liste_clients[1].list_adresses.liste[0].ville, "Brest");
 
 	g_nb_clients=2;
 	
@@ -323,7 +324,7 @@ set_adresse_livraison_1_svc(params_set_adresse *argp, struct svc_req *rqstp)
 		return &result;
 	}
 
-	if(argp->index_adresse_client<0 || g_liste_clients[index_client].list_adresse.nb_adresses<argp->index_adresse_client){
+	if(argp->index_adresse_client<0 || g_liste_clients[index_client].list_adresses.nb_adresses<argp->index_adresse_client){
 		result = 0;
 		return &result;
 	}
