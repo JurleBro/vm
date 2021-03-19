@@ -5,6 +5,7 @@
  */
 
 #include "up2youService.h"
+
 #define NB_MAX_COMMANDES 10
 
 client g_liste_clients[10];
@@ -15,6 +16,9 @@ int g_nb_commandes;
 
 mobile g_liste_mobiles[10];
 int g_nb_mobiles;
+
+assurance g_liste_assurances[10];
+int g_nb_assurances;
 
 //Initialise les variable global du serveur
 void *
@@ -55,6 +59,7 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	strcpy(g_liste_clients[1].list_adresse[0].voie, "Rue");
 	g_liste_clients[1].list_adresse[0].cp = 29200;
 	strcpy(g_liste_clients[1].list_adresse[0].ville, "Brest");
+
 	g_nb_clients=2;
 	
 	g_liste_mobiles[0].id=0;
@@ -73,6 +78,16 @@ init_1_svc(void *argp, struct svc_req *rqstp)
 	g_liste_mobiles[2].prix_achat = 120.0;
 	
 	g_nb_mobiles = 3;
+
+	g_liste_assurances[0].id = 0;
+	g_liste_assurances[0].prix = 90.0;
+	strcpy(g_liste_assurances[0].description ,"Descr...");
+
+	g_liste_assurances[1].id = 1;
+	g_liste_assurances[1].prix = 19.9;
+	strcpy(g_liste_assurances[1].description ,"Descr...");
+
+	g_nb_assurances = 2;
 	
 	printf("Serveur initilisé\n");
 
@@ -103,13 +118,7 @@ get_clients_1_svc(void *argp, struct svc_req *rqstp)
 client *
 get_client_1_svc(int *argp, struct svc_req *rqstp)
 {
-<<<<<<< HEAD
-	if(*argp==NULL){
-		return NULL;
-	}
-=======
 	printf("Execution : get_client(%d)\n", *argp);
->>>>>>> d76b7066bd5fae003029180ff76a62ec2a9b977d
 	
 	static client  result;
 	for(int i = 0; i<g_nb_clients; i++){
@@ -243,6 +252,146 @@ set_mobile_1_svc(params_set_mobile *argp, struct svc_req *rqstp)
 	result = 1;
 	
 	printf("Execution : set_mobile({%d, param_mobile})\n", argp->id_commande);
+
+	return &result;
+}
+
+//Renvoie la liste des assurances
+liste_assurances *
+get_assurances_1_svc(void *argp, struct svc_req *rqstp)
+{
+	static liste_assurances  result;
+
+	for(int i = 0; i < g_nb_assurances; i++){
+		result.liste[i] = g_liste_assurances[i];
+	}
+
+	result.nb_assurances = g_nb_assurances;
+
+	return &result;
+}
+
+assurance *
+get_assurance_1_svc(int *argp, struct svc_req *rqstp)
+{
+	static assurance  result;
+
+	for(int i = 0; i < g_nb_assurances; i++){
+		if(g_liste_assurances[i].id==*argp){
+			result = g_liste_assurances[i];
+			break;
+		}
+	}
+
+	return &result;
+}
+
+boolean *
+set_assurance_1_svc(params_set_assurance *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	int index_commande = commande_exist(argp->id_commande);
+
+	if(index_commande==-1 || assurances_exist(argp->id_assurances)){
+		result = 0;
+		return &result;
+	}
+
+	g_liste_commandes[index_commande].id_assurance = argp->id_assurances;
+	result = 1;
+
+	return &result;
+}
+
+
+
+boolean *
+set_adresse_livraison_1_svc(params_set_adresse *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	int index_commande = commande_exist(argp->id_commande);
+	if(index_commande==-1){
+		result = 0;
+		return &result;
+	}
+
+	int index_client = client_valide(g_liste_commandes[index_commande].id_client);
+	if(index_client==-1){
+		result = 0;
+		return &result;
+	}
+
+	if(argp->index_adresse_client<0 || g_liste_clients[index_client].list_adresse.nb_adresses<argp->index_adresse_client){
+		result = 0;
+		return &result;
+	}
+
+	g_liste_commandes[index_commande].index_adresse_client = argp->index_adress_client;
+	result = 1;
+
+	return &result;
+}
+
+liste_commandes *
+get_commandes_1_svc(void *argp, struct svc_req *rqstp)
+{
+	static liste_commandes  result;
+
+	for(int i = 0; i < g_nb_commandes; i++){
+		result.liste[i] = g_liste_commandes[i];
+	}
+	result.nb_commandes = g_nb_commandes;
+
+	return &result;
+}
+
+commande *
+get_commande_1_svc(int *argp, struct svc_req *rqstp)
+{
+	static commande  result;
+
+	for(int i = 0; i < g_nb_commandes; i++){
+		if(g_liste_commandes[i].id == *argp){
+			result = g_liste_commandes[i];
+			break;
+		}
+	}
+
+	return &result;
+}
+
+boolean *
+valide_commande_1_svc(int *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	int index_commande = commande_exist(*argp);
+
+	if(index_commande==-1){
+		result = 0;
+		return &result;
+	}
+
+	g_liste_commandes[index_commande].valide = 1;
+	result = 1;
+
+	return &result;
+}
+
+boolean *
+set_date_livraison_1_svc(params_set_dl *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	int index_commande = commande_exist(argp->id_commande);
+	if(index_commande==-1 || !g_liste_commandes[index_commande].valide){
+		result = 0;
+		return &result;
+	}
+
+	g_liste_commandes[index_commande].date_livraison = argp->dl;
 
 	return &result;
 }
