@@ -63,6 +63,20 @@ xdr_donnee_bc (XDR *xdrs, donnee_bc *objp)
 }
 
 bool_t
+xdr_liste_adresses (XDR *xdrs, liste_adresses *objp)
+{
+	register int32_t *buf;
+
+	int i;
+	 if (!xdr_vector (xdrs, (char *)objp->liste, 3,
+		sizeof (adresse), (xdrproc_t) xdr_adresse))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->nb_adresses))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_client (XDR *xdrs, client *objp)
 {
 	register int32_t *buf;
@@ -84,8 +98,7 @@ xdr_client (XDR *xdrs, client *objp)
 		 return FALSE;
 	 if (!xdr_boolean (xdrs, &objp->fact_tel))
 		 return FALSE;
-	 if (!xdr_vector (xdrs, (char *)objp->list_adresse, 3,
-		sizeof (adresse), (xdrproc_t) xdr_adresse))
+	 if (!xdr_liste_adresses (xdrs, &objp->list_adresses))
 		 return FALSE;
 	return TRUE;
 }
@@ -239,19 +252,7 @@ xdr_commande (XDR *xdrs, commande *objp)
 		 return FALSE;
 	 if (!xdr_boolean (xdrs, &objp->valide))
 		 return FALSE;
-	return TRUE;
-}
-
-bool_t
-xdr_livraison (XDR *xdrs, livraison *objp)
-{
-	register int32_t *buf;
-
-	 if (!xdr_int (xdrs, &objp->id))
-		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->id_commande))
-		 return FALSE;
-	 if (!xdr_date (xdrs, &objp->date))
+	 if (!xdr_date (xdrs, &objp->date_livraison))
 		 return FALSE;
 	return TRUE;
 }
@@ -343,7 +344,7 @@ xdr_params_set_adresse (XDR *xdrs, params_set_adresse *objp)
 
 	 if (!xdr_int (xdrs, &objp->id_commande))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->id_adresse_client))
+	 if (!xdr_int (xdrs, &objp->index_adresse_client))
 		 return FALSE;
 	return TRUE;
 }

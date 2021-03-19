@@ -38,6 +38,12 @@ struct donnee_bc {
 };
 typedef struct donnee_bc donnee_bc;
 
+struct liste_adresses {
+	adresse liste[3];
+	int nb_adresses;
+};
+typedef struct liste_adresses liste_adresses;
+
 struct client {
 	int id;
 	char nom[10];
@@ -46,7 +52,7 @@ struct client {
 	boolean rib;
 	boolean pi;
 	boolean fact_tel;
-	adresse list_adresse[3];
+	liste_adresses list_adresses;
 };
 typedef struct client client;
 
@@ -115,15 +121,9 @@ struct commande {
 	int id_assurance;
 	int id_adresse_client;
 	boolean valide;
+	date date_livraison;
 };
 typedef struct commande commande;
-
-struct livraison {
-	int id;
-	int id_commande;
-	struct date date;
-};
-typedef struct livraison livraison;
 
 struct liste_mobiles {
 	mobile liste[10];
@@ -163,7 +163,7 @@ typedef struct params_set_assurance params_set_assurance;
 
 struct params_set_adresse {
 	int id_commande;
-	int id_adresse_client;
+	int index_adresse_client;
 };
 typedef struct params_set_adresse params_set_adresse;
 
@@ -280,6 +280,7 @@ extern  bool_t xdr_boolean (XDR *, boolean*);
 extern  bool_t xdr_date (XDR *, date*);
 extern  bool_t xdr_adresse (XDR *, adresse*);
 extern  bool_t xdr_donnee_bc (XDR *, donnee_bc*);
+extern  bool_t xdr_liste_adresses (XDR *, liste_adresses*);
 extern  bool_t xdr_client (XDR *, client*);
 extern  bool_t xdr_mobile (XDR *, mobile*);
 extern  bool_t xdr_e_type (XDR *, e_type*);
@@ -293,7 +294,6 @@ extern  bool_t xdr_memoire (XDR *, memoire*);
 extern  bool_t xdr_params_mobile (XDR *, params_mobile*);
 extern  bool_t xdr_assurance (XDR *, assurance*);
 extern  bool_t xdr_commande (XDR *, commande*);
-extern  bool_t xdr_livraison (XDR *, livraison*);
 extern  bool_t xdr_liste_mobiles (XDR *, liste_mobiles*);
 extern  bool_t xdr_liste_clients (XDR *, liste_clients*);
 extern  bool_t xdr_liste_assurances (XDR *, liste_assurances*);
@@ -308,6 +308,7 @@ extern bool_t xdr_boolean ();
 extern bool_t xdr_date ();
 extern bool_t xdr_adresse ();
 extern bool_t xdr_donnee_bc ();
+extern bool_t xdr_liste_adresses ();
 extern bool_t xdr_client ();
 extern bool_t xdr_mobile ();
 extern bool_t xdr_e_type ();
@@ -321,7 +322,6 @@ extern bool_t xdr_memoire ();
 extern bool_t xdr_params_mobile ();
 extern bool_t xdr_assurance ();
 extern bool_t xdr_commande ();
-extern bool_t xdr_livraison ();
 extern bool_t xdr_liste_mobiles ();
 extern bool_t xdr_liste_clients ();
 extern bool_t xdr_liste_assurances ();
