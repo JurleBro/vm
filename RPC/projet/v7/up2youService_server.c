@@ -92,7 +92,7 @@ get_client_1_svc(int *argp, struct svc_req *rqstp)
 	if(*argp==NULL){
 		return NULL;
 	}
-
+	
 	static client  result;
 	for(int i = 0; i<g_nb_clients; i++){
 		if(g_liste_clients[i].id == *argp){
