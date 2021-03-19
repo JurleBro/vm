@@ -83,6 +83,22 @@ up2us_prog_1(char *host)
 	int  get_mobile_1_arg;
 	boolean  *result_7;
 	params_set_mobile  set_mobile_1_arg;
+	liste_assurances  *result_8;
+	char *get_assurances_1_arg;
+	assurance  *result_9;
+	int  get_assurance_1_arg;
+	boolean  *result_10;
+	params_set_assurance  set_assurance_1_arg;
+	boolean  *result_11;
+	params_set_adresse  set_adresse_livraison_1_arg;
+	liste_commandes  *result_12;
+	char *get_commandes_1_arg;
+	commande  *result_13;
+	int  get_commande_1_arg;
+	boolean  *result_14;
+	int  valide_commande_1_arg;
+	boolean  *result_15;
+	params_set_dl  set_date_livraison_1_arg;
 
 #ifndef	DEBUG
 	clnt = clnt_create (host, UP2US_PROG, UP2US_V_1, "udp");
@@ -167,7 +183,38 @@ up2us_prog_1(char *host)
 	printf("%s\n",*result_7 ? "Paramètre mobile enregistré" : "L'enregitrement des paramètre n'a pas pu avoir lieu");
 	
 	printf("-----------------------------------------------\n");
-
+	result_8 = get_assurances_1((void*)&get_assurances_1_arg, clnt);
+	if (result_8 == (liste_assurances *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_9 = get_assurance_1(&get_assurance_1_arg, clnt);
+	if (result_9 == (assurance *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_10 = set_assurance_1(&set_assurance_1_arg, clnt);
+	if (result_10 == (boolean *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_11 = set_adresse_livraison_1(&set_adresse_livraison_1_arg, clnt);
+	if (result_11 == (boolean *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_12 = get_commandes_1((void*)&get_commandes_1_arg, clnt);
+	if (result_12 == (liste_commandes *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_13 = get_commande_1(&get_commande_1_arg, clnt);
+	if (result_13 == (commande *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_14 = valide_commande_1(&valide_commande_1_arg, clnt);
+	if (result_14 == (boolean *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
+	result_15 = set_date_livraison_1(&set_date_livraison_1_arg, clnt);
+	if (result_15 == (boolean *) NULL) {
+		clnt_perror (clnt, "call failed");
+	}
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */

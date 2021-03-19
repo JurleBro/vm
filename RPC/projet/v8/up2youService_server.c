@@ -5,6 +5,7 @@
  */
 
 #include "up2youService.h"
+
 #define NB_MAX_COMMANDES 10
 
 client g_liste_clients[10];
@@ -237,6 +238,102 @@ set_mobile_1_svc(params_set_mobile *argp, struct svc_req *rqstp)
 	result = 1;
 	
 	printf("Execution : set_mobile({%d, param_mobile})\n", argp->id_commande);
+
+	return &result;
+}
+
+liste_assurances *
+get_assurances_1_svc(void *argp, struct svc_req *rqstp)
+{
+	static liste_assurances  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
+
+assurance *
+get_assurance_1_svc(int *argp, struct svc_req *rqstp)
+{
+	static assurance  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
+
+boolean *
+set_assurance_1_svc(params_set_assurance *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
+
+boolean *
+set_adresse_livraison_1_svc(params_set_adresse *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
+
+liste_commandes *
+get_commandes_1_svc(void *argp, struct svc_req *rqstp)
+{
+	static liste_commandes  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
+
+commande *
+get_commande_1_svc(int *argp, struct svc_req *rqstp)
+{
+	static commande  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
+
+boolean *
+valide_commande_1_svc(int *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return &result;
+}
+
+boolean *
+set_date_livraison_1_svc(params_set_dl *argp, struct svc_req *rqstp)
+{
+	static boolean  result;
+
+	/*
+	 * insert server code here
+	 */
 
 	return &result;
 }
